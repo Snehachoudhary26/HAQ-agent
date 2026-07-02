@@ -1,0 +1,72 @@
+[
+  {
+    "id": "pmkisan",
+    "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "category": "agriculture",
+    "summary": "Income support of ₹6,000/year for landholding farmer families, paid in 3 installments of ₹2,000 via DBT.",
+    "amount": "₹6,000/year (₹2,000 x 3 installments)",
+    "eligibility": {
+      "occupation": ["farmer"],
+      "ownsLand": true,
+      "incomeTaxPayer": false
+    },
+    "exclusions": [
+      "Institutional landholders",
+      "Constitutional post holders / MPs / MLAs / Ministers",
+      "Income tax payers (last assessment year)",
+      "Government employees (except Group D/MTS)",
+      "Professionals registered with statutory bodies (doctors, engineers, lawyers, CAs, architects)"
+    ],
+    "documents": ["Aadhaar card", "Land ownership record", "Bank passbook (Aadhaar-seeded)"],
+    "source": "pmkisan.gov.in / PIB",
+    "lastVerified": "2026-06-30"
+  },
+  {
+    "id": "nsap-ignoaps",
+    "name": "NSAP – Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+    "category": "pension",
+    "summary": "Monthly pension for BPL senior citizens aged 60+, with higher amount after age 80.",
+    "amount": "₹200/month (age 60–79), ₹500/month (age 80+) — central share; many states top this up",
+    "eligibility": {
+      "minAge": 60,
+      "belowPovertyLine": true
+    },
+    "exclusions": ["Not below poverty line", "Already covered under another NSAP pension component"],
+    "documents": ["Age proof certificate", "BPL/income certificate", "Bank or post office account", "Aadhaar card"],
+    "source": "nsap.nic.in / Ministry of Rural Development",
+    "lastVerified": "2026-06-30"
+  },
+  {
+    "id": "pmjay",
+    "name": "Ayushman Bharat – PM Jan Arogya Yojana (PMJAY)",
+    "category": "health",
+    "summary": "Cashless health insurance of ₹5 lakh per family per year for hospitalization at empanelled hospitals. All citizens 70+ qualify regardless of income.",
+    "amount": "₹5,00,000/family/year",
+    "eligibility": {
+      "seccListed": true,
+      "minAgeOverride": 70
+    },
+    "exclusions": ["Not listed in SECC-2011 database (unless aged 70+)", "Covered already under CGHS/ECHS with no opt-in"],
+    "documents": ["Aadhaar card", "Ration card / Family ID", "Mobile number for OTP verification"],
+    "source": "nha.gov.in / pmjay.gov.in",
+    "lastVerified": "2026-06-30"
+  },
+  {
+    "id": "pragati-girls",
+    "name": "AICTE Pragati Scholarship for Girls",
+    "category": "education",
+    "summary": "₹50,000/year for girl students in 1st year (or 2nd year lateral entry) of AICTE-approved diploma/degree technical courses.",
+    "amount": "₹50,000/year, up to course duration",
+    "eligibility": {
+      "gender": "female",
+      "occupation": ["student"],
+      "courseType": "technical_diploma_or_degree",
+      "yearOfStudy": [1, "lateral-2"],
+      "maxFamilyIncome": 800000
+    },
+    "exclusions": ["More than 2 girls per family already availing", "Receiving another central/state scholarship for the same purpose", "Family income above ₹8,00,000/year"],
+    "documents": ["Class 10 & 12 marksheets", "Admission proof", "Income certificate", "Bank passbook", "Aadhaar card"],
+    "source": "aicte.gov.in / National Scholarship Portal",
+    "lastVerified": "2026-06-30"
+  }
+]

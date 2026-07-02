@@ -1,0 +1,14 @@
+cd /Users/snehachoudhary/Downloads/haq-agent/frontend
+npm run dev
+
+lsof -ti:5173,5174 | xargs kill -9
+
+
+cd /Users/snehachoudhary/Downloads/haq-agent/frontend
+rm -rf node_modules/.vite
+npm run dev
+
+cd /Users/snehachoudhary/Downloads/haq-agent/backend
+node src/server.js
+
+💬
