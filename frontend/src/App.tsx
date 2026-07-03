@@ -7,7 +7,7 @@ const categories = [
   { icon: GraduationCap, label: "Education", hi: "शिक्षा", desc: "Scholarships, internships", color: "text-[#0A542E]", bg: "bg-white" },
   { icon: Wheat, label: "Agriculture", hi: "कृषि", desc: "Subsidies, crop insurance", color: "text-[#0D9488]", bg: "bg-teal-50" },
   { icon: HeartPulse, label: "Health", hi: "स्वास्थ्य", desc: "Insurance, treatment aid", color: "text-[#0A542E]", bg: "bg-white" },
-  { icon: Coins, label: "Pension", hi: "पेंशन", desc: "Welfare, old-age support", color: "text-[#D9A21B]", bg: "bg-amber-50" },
+  { icon: Coins, label: "Pension", hi: "पेंशन", desc: "Welfare, old-age support", color: "text-[#ffda24]", bg: "bg-amber-50" },
 ];
 
 const stats = [
@@ -44,7 +44,7 @@ export default function App() {
           <nav className="hidden sm:flex items-center gap-6 text-sm text-white/90">
             <a href="/" className="hover:text-white font-medium">Home</a>
             <a href="/schemes" className="hover:text-white">Schemes</a>
-            <a href="/agent" className="hover:text-yellow-300 transition-colors flex items-center gap-1">💬 Chat Agent </a>
+            <a href="/agent" className="hover:text-yellow-300 transition-colors flex items-center gap-1 ">💬 Chat Agent </a>
             <a href="#" className="hover:text-white">About Us</a>
             <button className="border border-white/30 rounded-full px-3 py-1 text-sm hover:bg-white/10 transition-colors">🌐 हिंदी</button>
           </nav>
@@ -53,7 +53,7 @@ export default function App() {
             <a href="/notifications" className="relative p-1" aria-label="Notifications">
               <Bell size={20} className="text-white" />
               {count > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#D9A21B] text-[#000000] text-sm font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-[#ffda24] text-[#000000] text-sm font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {count > 9 ? "9+" : count}
                 </span>
               )}
@@ -73,10 +73,10 @@ export default function App() {
         {menuOpen && (
           <div className="sm:hidden bg-[#083d21] px-4 pb-4 space-y-2">
             <a href="/" className="block text-white font-semibold py-2 text-base">Home</a>
-            <a href="/agent" className="block text-white font-semibold py-2 text-base">Schemes</a>
-            <a href="/agent" className="block text-white font-semibold py-2 text-base">How it Works</a>
+            <a href="/schemes" className="block text-white font-semibold py-2 text-base">Schemes</a>
             <a href="/track" className="block text-white font-semibold py-2 text-base">Track Application</a>
-            <a href="#" className="block text-white font-semibold py-2 text-base">About Us</a>
+            <a href="/track" className="block text-white font-semibold py-2 text-base">Track Application</a>
+            <a href="/about" className="block text-white font-semibold py-2 text-base">About Us</a>
           </div>
         )}
       </header>
@@ -133,7 +133,7 @@ export default function App() {
         {/* How it works strip */}
         <section className="bg-[#0A542E] rounded-2xl px-5 sm:px-8 py-6 sm:py-8">
           <p className="text-white font-semibold text-base sm:text-lg mb-5 text-center">
-            How it Works &nbsp;·&nbsp; <span className="text-[#D9A21B]">यह कैसे काम करता है</span>
+            How it Works &nbsp;·&nbsp; <span className="text-[#ffda24]">यह कैसे काम करता है</span>
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
             {[

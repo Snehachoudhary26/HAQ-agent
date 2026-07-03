@@ -303,9 +303,9 @@ export default function AgentChat() {
 
         <button
           onClick={resetChat}
-          className="mx-4 mb-4 border border-[#D9A21B]/60 text-[#D9A21B] text-sm rounded-lg py-2 flex items-center justify-center gap-2 hover:bg-white/5 transition-colors"
+          className="mx-4 mb-4 border border-[#ffda24]/60 text-[#ffda24] text-sm rounded-lg py-2 flex items-center justify-center gap-2 hover:bg-white/5 transition-colors"
         >
-          <MessageCircle size={15} /> New Conversation
+          <MessageCircle size={20} /> New Conversation
         </button>
 
         <nav className="flex-1 px-3 space-y-1">
@@ -322,7 +322,7 @@ export default function AgentChat() {
         </nav>
 
         <div className="m-4 bg-white/10 rounded-xl p-3.5 flex items-start gap-2">
-          <ShieldCheck size={16} className="text-[#D9A21B] flex-shrink-0 mt-0.5" />
+          <ShieldCheck size={16} className="text-[#ffda24] flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-xs font-medium">Your data is safe with us</p>
             <p className="text-[11px] text-white font-bold mt-0.5">
@@ -612,10 +612,10 @@ export default function AgentChat() {
               </div>
             </div>
 
-            <div className="bg-[#D9A21B]/10 border border-[#D9A21B]/30 rounded-xl p-4">
+            <div className="bg-[#ffda24]/10 border border-[#ffda24]/30 rounded-xl p-4">
               <p className="text-sm font-medium text-black">Need Help?</p>
               <p className="text-xs text-black font-semibold mt-1">हम आपकी मदद के लिए यहाँ हैं। We are here to help you.</p>
-              <button className="mt-2 text-xs border border-[#D9A21B] text-black rounded-lg px-3 py-1.5 w-full hover:bg-[#D9A21B]/10 transition-colors">
+              <button className="mt-2 text-xs border border-[#ffda24] text-black rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors">
                 Contact Support
               </button>
             </div>

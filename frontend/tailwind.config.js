@@ -7,7 +7,7 @@ export default {
         brand: {
           green: "#0A542E",
           teal: "#037D6F",
-          gold: "#D9A21B",
+          gold: "#ffda24",
           light: "#F0FDF4",
         },
       },

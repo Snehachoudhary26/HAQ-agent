@@ -6,6 +6,7 @@ import AgentChat from "./pages/AgentChat";
 import Notifications from "./pages/Notifications";
 import Schemes from "./pages/Schemes";
 import TrackApplication from "./pages/TrackApplication";
+import AboutUs from "./pages/AboutUs";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/schemes" element={<Schemes />} />
         <Route path="/track" element={<TrackApplication />} />
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

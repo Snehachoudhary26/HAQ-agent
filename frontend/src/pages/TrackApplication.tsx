@@ -75,7 +75,7 @@ const applications: Application[] = [
 
 const statusConfig = {
   approved: { color: "#0A542E", bg: "#F0FDF4", icon: CheckCircle2, label: "Approved" },
-  pending: { color: "#D9A21B", bg: "#FFFBEB", icon: Clock, label: "Pending" },
+  pending: { color: "#ffda24", bg: "#FFFBEB", icon: Clock, label: "Pending" },
   "action-required": { color: "#DC2626", bg: "#FEF2F2", icon: AlertCircle, label: "Action Required" },
 };
 
@@ -105,7 +105,7 @@ export default function TrackApplication() {
             <a href="/" className="hover:text-yellow-300">Home</a>
             <a href="/schemes" className="hover:text-yellow-300">Schemes</a>
             <a href="/agent" className="hover:text-yellow-300">💬 Chat Agent</a>
-            <a href="/track" className="font-bold border-b-2 pb-0.5" style={{ color: "#D9A21B", borderColor: "#D9A21B" }}>Track Application</a>
+            <a href="/track" className="font-bold border-b-2 pb-0.5" style={{ color: "#ffda24", borderColor: "#ffda24" }}>Track Application</a>
           </nav>
           <a href="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>
             Check Eligibility

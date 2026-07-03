@@ -41,7 +41,7 @@ export default function Schemes() {
       <header style={{ background: "#0A542E" }} className="text-white sticky top-0 z-50 shadow-lg">
         <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
-            <img src="/images/favicon.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
+          <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
               <p className="font-bold text-white text-xl sm:text-2xl">Haq Agent</p>
               <p className="text-sm text-white/80 hidden sm:block"> हर योजना, हर हकदार तक </p>
@@ -49,9 +49,9 @@ export default function Schemes() {
           </a>
           <nav className="hidden sm:flex items-center gap-8 text-base font-medium text-white">
             <a href="/" className="hover:text-yellow-300">Home</a>
-            <a href="/schemes" className="font-bold border-b-2 border-yellow-300 pb-0.5" style={{ color: "#D9A21B" }}>Schemes</a>
+            <a href="/schemes" className="font-bold border-b-2 border-yellow-300 pb-0.5" style={{ color: "#ffda24" }}>Schemes</a>
             <a href="/agent" className="hover:text-yellow-300">Chat Agent</a>
-            <a href="/notifications" className="hover:text-yellow-300 flex items-center gap-1"><Bell size={20} /> Notifications</a>
+            <a href="/notifications" className="hover:text-yellow-300 flex items-center gap-1"><Bell size={24} /> Notifications</a>
           </nav>
           <a href="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>Check My Eligibility</a>
         </div>
@@ -94,7 +94,7 @@ export default function Schemes() {
         </div>
 
         <p className="text-base font-bold text-black mb-4">
-          Showing <span style={{ color: "#D9A21B" }}>{filtered.length}</span> of {schemes.length} schemes
+          Showing <span style={{ color: "#ffda24" }}>{filtered.length}</span> of {schemes.length} schemes
         </p>
 
         <div className="space-y-4">
@@ -123,7 +123,7 @@ export default function Schemes() {
                         <p className="text-base sm:text-xl font-bold" style={{ color: "#0A542E" }}>{s.nameHi}</p>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-sm sm:text-base font-bold px-3 py-1 rounded-full hidden sm:block text-white capitalize" style={{ background: "#D9A21B" }}>
+                        <span className="text-sm sm:text-base font-bold px-3 py-1 rounded-full hidden sm:block text-black capitalize" style={{ background: "#ffda24" }}>
                           {meta.label}
                         </span>
                         {expanded
@@ -139,7 +139,7 @@ export default function Schemes() {
                 {expanded && (
                   <div className="px-4 sm:px-6 pb-5 border-t-2 pt-4 space-y-4" style={{ borderColor: "#0A542E20" }}>
                     <div className="flex items-center gap-2">
-                      <IndianRupee size={20} style={{ color: "#D9A21B" }} />
+                      <IndianRupee size={20} style={{ color: "#ffda24" }} />
                       <span className="text-base font-bold text-black">{s.amount}</span>
                     </div>
                     <div>
@@ -150,7 +150,7 @@ export default function Schemes() {
                     </div>
                     <div>
                       <p className="text-base font-bold text-black uppercase tracking-wide mb-2 flex items-center gap-1.5">
-                        <FileCheck2 size={15} style={{ color: "#D9A21B" }} /> Documents needed
+                        <FileCheck2 size={15} style={{ color: "#ffda24" }} /> Documents needed
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {s.documents.map((d) => (
