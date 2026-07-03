@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sprout, Search, GraduationCap, Wheat, HeartPulse, Coins, FileCheck2, IndianRupee, ExternalLink, Bell, ChevronDown, ChevronUp } from "lucide-react";
+import { Sprout, Search, GraduationCap, Wheat, HeartPulse, Coins, FileCheck2, IndianRupee, ExternalLink, Bell, ChevronDown, ChevronUp, MessageCircle } from "lucide-react";
 
 type Scheme = {
   id: string; name: string; nameHi: string; category: string;
@@ -50,8 +50,9 @@ export default function Schemes() {
           <nav className="hidden sm:flex items-center gap-8 text-base font-medium text-white">
             <a href="/" className="hover:text-yellow-300">Home</a>
             <a href="/schemes" className="font-bold border-b-2 border-yellow-300 pb-0.5" style={{ color: "#ffda24" }}>Schemes</a>
-            <a href="/agent" className="hover:text-yellow-300">Chat Agent</a>
-            <a href="/notifications" className="hover:text-yellow-300 flex items-center gap-1"><Bell size={24} /> Notifications</a>
+            <a href="/agent" className="hover:text-yellow-300 flex items-center gap-1"><MessageCircle size={18} />Chat Agent</a>
+            
+            <a href="/notifications" className="hover:text-yellow-300 flex items-center gap-1"><Bell size={18} /> Notifications</a>
           </nav>
           <a href="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>Check My Eligibility</a>
         </div>

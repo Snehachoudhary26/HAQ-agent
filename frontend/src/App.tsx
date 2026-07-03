@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Bell, GraduationCap, Wheat, HeartPulse, Coins, Sprout, Menu, BellRing, CheckCircle2, Mic } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Bell, GraduationCap, Wheat, HeartPulse, Coins, Sprout, Menu, BellRing, CheckCircle2, Mic, MessageCircle, Globe, Home, ListChecks } from "lucide-react";
 import HeroCarousel from "./components/HeroCarousel";
 import { getNotifications } from "./lib/notifications";
 
@@ -42,11 +43,15 @@ export default function App() {
           </div>
 
           <nav className="hidden sm:flex items-center gap-6 text-sm text-white/90">
-            <a href="/" className="hover:text-white font-medium">Home</a>
-            <a href="/schemes" className="hover:text-white">Schemes</a>
-            <a href="/agent" className="hover:text-yellow-300 transition-colors flex items-center gap-1 ">💬 Chat Agent </a>
-            <a href="#" className="hover:text-white">About Us</a>
-            <button className="border border-white/30 rounded-full px-3 py-1 text-sm hover:bg-white/10 transition-colors">🌐 हिंदी</button>
+            <Link to="/" className="hover:text-white font-medium flex items-center gap-1"><Home size={16} /> Home</Link>
+            <Link to="/schemes" className="hover:text-white flex items-center gap-1"><ListChecks size={16} /> Schemes</Link>
+            <Link to="/agent" className="hover:text-yellow-300 transition-colors flex items-center gap-1">
+              <MessageCircle size={16} /> Chat Agent
+            </Link>
+            <Link to="/about" className="hover:text-white">About Us</Link>
+            <button className="border border-white/30 rounded-full px-3 py-1 text-sm hover:bg-white/10 transition-colors flex items-center gap-1">
+              <Globe size={14} /> हिंदी
+            </button>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -72,11 +77,10 @@ export default function App() {
 
         {menuOpen && (
           <div className="sm:hidden bg-[#083d21] px-4 pb-4 space-y-2">
-            <a href="/" className="block text-white font-semibold py-2 text-base">Home</a>
-            <a href="/schemes" className="block text-white font-semibold py-2 text-base">Schemes</a>
-            <a href="/track" className="block text-white font-semibold py-2 text-base">Track Application</a>
-            <a href="/track" className="block text-white font-semibold py-2 text-base">Track Application</a>
-            <a href="/about" className="block text-white font-semibold py-2 text-base">About Us</a>
+            <Link to="/" onClick={() => setMenuOpen(false)} className="block text-white font-semibold py-2 text-base flex items-center gap-2"><Home size={18} /> Home</Link>
+            <Link to="/schemes" onClick={() => setMenuOpen(false)} className="block text-white font-semibold py-2 text-base flex items-center gap-2"><ListChecks size={18} /> Schemes</Link>
+            <Link to="/track" onClick={() => setMenuOpen(false)} className="block text-white font-semibold py-2 text-base">Track Application</Link>
+            <Link to="/about" onClick={() => setMenuOpen(false)} className="block text-white font-semibold py-2 text-base">About Us</Link>
           </div>
         )}
       </header>

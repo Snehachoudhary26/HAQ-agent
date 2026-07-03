@@ -407,7 +407,7 @@ export default function AgentChat() {
                     <button
                       key={q.value}
                       onClick={() => handleOccupation(q.value)}
-                      className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#0A542E] hover:text-white transition-colors leading-snug bg-white"
+                      className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#297d03] hover:text-white transition-colors leading-snug bg-white"
                     >
                       {q.en} <span className="text-black font-bold">/ {q.hi}</span>
                     </button>
@@ -424,7 +424,7 @@ export default function AgentChat() {
                     <button
                       key={g.v}
                       onClick={() => handleReply(g.v, { gender: g.v }, "land", g.en)}
-                      className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#0A542E] hover:text-white transition-colors bg-white"
+                      className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#297d03] hover:text-white transition-colors bg-white"
                     >
                       {g.en} <span className="text-black font-bold">/ {g.hi}</span>
                     </button>
@@ -436,13 +436,13 @@ export default function AgentChat() {
                 <div className="flex flex-wrap gap-2 pt-2">
                   <button
                     onClick={() => handleReply("yes", { ownsLand: true }, "bpl", "Yes, we own land")}
-                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#0A542E] hover:text-white transition-colors bg-white"
+                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#297d03] hover:text-white transition-colors bg-white"
                   >
                     Yes / हाँ
                   </button>
                   <button
                     onClick={() => handleReply("no", { ownsLand: false }, "bpl", "No")}
-                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#0A542E] hover:text-white transition-colors bg-white"
+                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#297d03] hover:text-white transition-colors bg-white"
                   >
                     No / नहीं
                   </button>
@@ -455,13 +455,13 @@ export default function AgentChat() {
                     onClick={() =>
                       handleReply("yes", { belowPovertyLine: true, seccListed: true }, "income", "Yes, BPL/SECC listed")
                     }
-                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#0A542E] hover:text-white transition-colors bg-white"
+                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#297d03] hover:text-white transition-colors bg-white"
                   >
                     Yes / हाँ
                   </button>
                   <button
                     onClick={() => handleReply("no", { belowPovertyLine: false, seccListed: false }, "income", "No")}
-                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#0A542E] hover:text-white transition-colors bg-white"
+                    className="text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#297d03] hover:text-white transition-colors bg-white"
                   >
                     No / Not sure
                   </button>

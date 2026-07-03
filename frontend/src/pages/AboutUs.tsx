@@ -1,27 +1,31 @@
-import { Users, Target, Heart, Sprout, GraduationCap, Code2, Globe } from "lucide-react";
+
+import { Link } from "react-router-dom";
+import { Users, Target, Heart, Sprout, GraduationCap, Code2, Globe, MessageCircle, BookOpen, MapPin, Search, Mic, Smartphone, ClipboardList, Home, ListChecks } from "lucide-react";
 
 export default function AboutUs() {
   return (
     <div className="min-h-full bg-white">
       <header style={{ background: "#0A542E" }} className="text-white sticky top-0 z-50 shadow-lg">
         <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2.5">
+          <Link to="/" className="flex items-center gap-2.5">
             <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
               <p className="font-bold text-white text-base sm:text-lg">Haq Agent</p>
               <p className="text-xs text-white/80 hidden sm:block">हर योजना, हर हकदार तक</p>
             </div>
-          </a>
+          </Link>
           <nav className="hidden sm:flex items-center gap-8 text-sm font-medium text-white">
-            <a href="/" className="hover:text-yellow-300">Home</a>
-            <a href="/schemes" className="hover:text-yellow-300">Schemes</a>
-            <a href="/agent" className="hover:text-yellow-300">💬 Chat Agent</a>
-            <a href="/track" className="hover:text-yellow-300">Track Application</a>
-            <a href="/about" className="font-bold border-b-2 pb-0.5" style={{ color: "#ffda24", borderColor: "#ffda24" }}>About Us</a>
+            <Link to="/" className="hover:text-yellow-300 flex items-center gap-1"><Home size={16} /> Home</Link>
+            <Link to="/schemes" className="hover:text-yellow-300 flex items-center gap-1"><ListChecks size={16} /> Schemes</Link>
+            <Link to="/agent" className="hover:text-yellow-300 flex items-center gap-1">
+              <MessageCircle size={16} /> Chat Agent
+            </Link>
+            <Link to="/track" className="hover:text-yellow-300">Track Application</Link>
+            <Link to="/about" className="font-bold border-b-2 pb-0.5" style={{ color: "#ffda24", borderColor: "#ffda24" }}>About Us</Link>
           </nav>
-          <a href="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>
+          <Link to="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>
             Check Eligibility
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -49,12 +53,12 @@ export default function AboutUs() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { icon: "📚", title: "Awareness stops at exams", desc: "NITI Aayog opens internships every month. Most rural students have never heard of it." },
-              { icon: "📍", title: "Benefits reach the wrong address", desc: "Subsidies meant for farmers get claimed by city residents who kept a rural address on paper." },
-              { icon: "🔍", title: "Discovery is scattered", desc: "Schemes for farmers, students, patients sit across dozens of portals with no single entry point." },
+              { Icon: BookOpen, title: "Awareness stops at exams", desc: "NITI Aayog opens internships every month. Most rural students have never heard of it." },
+              { Icon: MapPin, title: "Benefits reach the wrong address", desc: "Subsidies meant for farmers get claimed by city residents who kept a rural address on paper." },
+              { Icon: Search, title: "Discovery is scattered", desc: "Schemes for farmers, students, patients sit across dozens of portals with no single entry point." },
             ].map((p) => (
               <div key={p.title} className="bg-white/10 rounded-xl p-4">
-                <p className="text-3xl mb-3">{p.icon}</p>
+                <p.Icon size={28} className="text-white mb-3" />
                 <p className="text-base font-bold text-white mb-2">{p.title}</p>
                 <p className="text-sm font-semibold text-white/90">{p.desc}</p>
               </div>
@@ -70,13 +74,13 @@ export default function AboutUs() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              { icon: "🎤", title: "Speak once", desc: "Describe your situation in Hindi or English — by voice or text. The agent takes it from there." },
-              { icon: "🔎", title: "Agent checks everything", desc: "Eligibility verified against real government scheme rules. No guesswork." },
-              { icon: "📲", title: "Notifies automatically", desc: "SMS and email the moment you qualify, a scheme opens, or your application is approved." },
-              { icon: "📋", title: "Guides you to apply", desc: "Tells you exactly which documents you need before you waste a trip to any government office." },
+              { Icon: Mic, title: "Speak once", desc: "Describe your situation in Hindi or English — by voice or text. The agent takes it from there." },
+              { Icon: Search, title: "Agent checks everything", desc: "Eligibility verified against real government scheme rules. No guesswork." },
+              { Icon: Smartphone, title: "Notifies automatically", desc: "SMS and email the moment you qualify, a scheme opens, or your application is approved." },
+              { Icon: ClipboardList, title: "Guides you to apply", desc: "Tells you exactly which documents you need before you waste a trip to any government office." },
             ].map((s) => (
               <div key={s.title} className="border-2 rounded-xl p-5" style={{ borderColor: "#0A542E30" }}>
-                <p className="text-3xl mb-3">{s.icon}</p>
+                <s.Icon size={28} style={{ color: "#0A542E" }} className="mb-3" />
                 <p className="text-base font-bold text-black mb-2">{s.title}</p>
                 <p className="text-sm font-semibold text-black">{s.desc}</p>
               </div>

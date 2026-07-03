@@ -13,23 +13,8 @@ node src/server.js
 
 💬
 
- #in nav bar i want this icon { icon: MessageCircle, label: "New Conversation" },
-   #{ icon: ListChecks, label: "My Schemes" },
-   #{ icon: FileText, label: "My Applications" },
-   #{ icon: BellRing, label: "Notifications", href: "/notifications" },
-   #{ icon: HelpCircle, label: "Help & Support" },
+
    
-   # not plain like this <nav className="hidden sm:flex items-center gap-6 text-sm text-white/90">
-           # <a href="/" className="hover:text-white font-medium">Home</a>
-           # <a href="/schemes" className="hover:text-white">Schemes</a>
-           # <a href="/agent" className="hover:text-yellow-300 transition-colors flex items-center gap-1 ">💬 Chat Agent </a>
-           # <a href="#" className="hover:text-white">About Us</a>
-           # <button className="border border-white/30 rounded-full px-3 py-1 text-sm hover:bg-white/10 transition-colors">🌐 हिंदी</button>
-          #</nav> G is looking so clean my homepage above NAV bar. I want in the home there should be home icon like how there is icon in side bar of scheme. I want this small icon in my bar also, but not like real emoji I want icon like this.{ icon: ListChecks, label: "My Schemes" },
-   #{ icon: FileText, label: "My Applications" },
-   #{ icon: BellRing, label: "Notifications", href: "/notifications" },
-   #{ icon: HelpCircle, label: "Help & Support" },
-  # 
 
 
 sneha.linkedin.main@gmail.com
