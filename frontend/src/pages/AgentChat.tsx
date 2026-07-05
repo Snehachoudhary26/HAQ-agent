@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Send, Mic, FileCheck2, IndianRupee, BellRing, GraduationCap, Sprout, Users,
   HardHat, Building2, Grid3x3, MessageCircle, ListChecks, FileText, HelpCircle,
-  ChevronRight, ShieldCheck, Menu, X, Bell, Sparkles, Zap,
+  ChevronRight, ShieldCheck, Menu, X, Bell, Sparkles, Zap, Globe, Phone, Mail,
 } from "lucide-react";
 import { addNotification, getNotifications } from "../lib/notifications";
 import { useVoiceInput } from "../hooks/useVoiceInput";
@@ -35,7 +35,7 @@ const API_BASE = "http://localhost:4000";
 type Step = "occupation" | "age" | "gender" | "land" | "bpl" | "income" | "done";
 
 const occupationOptions = [
-  { value: "student", en: "Student", hi: "छात्र", icon: GraduationCap, bg: "#DBEAFE", color: "#1E40AF" },
+  { value: "student", en: "Student", hi: "छात्र", icon: GraduationCap, bg: "#E6F4EA", color: "#0A542E" },
   { value: "farmer", en: "Farmer", hi: "किसान", icon: Sprout, bg: "#DCFCE7", color: "#166534" },
   { value: "retired", en: "Retired", hi: "सेवानिवृत्त", icon: Users, bg: "#F0FDF4", color: "#0A542E" },
   { value: "daily-wage-laborer", en: "Daily Wage Laborer", hi: "दैनिक मजदूर", icon: HardHat, bg: "#FEF3C7", color: "#92400E" },
@@ -145,11 +145,11 @@ export default function AgentChat() {
   function askNext(next: Step) {
     const questions: Record<Step, string> = {
       occupation: "",
-      age: "Got it. What's your age?",
-      gender: "Thanks. Are you male or female?",
-      land: "Do you (or your family) own agricultural land?",
-      bpl: "Is your household listed as Below Poverty Line (BPL), or do you hold a BPL/SECC card?",
-      income: "Roughly, what's your family's annual income?",
+      age: "Got it. What's your age? / आपकी उम्र क्या है?",
+      gender: "Thanks. Are you male or female? / धन्यवाद. आप पुरुष हैं या महिला?",
+      land: "Do you (or your family) own agricultural land? / क्या आपके परिवार के पास खेती की ज़मीन है?",
+      bpl: "Is your household listed as Below Poverty Line (BPL), or do you hold a BPL/SECC card? / क्या आपका परिवार बीपीएल/एसईसीसी सूची में है?",
+      income: "Roughly, what's your family's annual income? / लगभग आपकी वार्षिक पारिवारिक आय क्या है?",
       done: "",
     };
     if (questions[next]) pushAgent(questions[next]);
@@ -353,11 +353,11 @@ export default function AgentChat() {
           <div className="ml-auto flex items-center gap-2">
             <button
               onClick={() => setVoiceLang("en-IN")}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
                 voiceLang === "en-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
               }`}
             >
-              English
+              <Globe size={13} /> English
             </button>
             <button
               onClick={() => setVoiceLang("hi-IN")}
@@ -381,7 +381,7 @@ export default function AgentChat() {
         <div className="flex-1 flex flex-col xl:flex-row min-h-0">
           {/* Chat column */}
           <main className="flex-1 flex flex-col min-w-0 px-4 sm:px-6 py-5 overflow-y-auto">
-            <div className="max-w-2xl w-full mx-auto xl:mx-0 space-y-4 flex-1">
+            <div className="max-w-4xl w-full mx-auto space-y-4 flex-1">
               {messages.map((m, i) => (
                 <div key={i} className={`flex gap-2.5 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   {m.role === "agent" && (
@@ -416,7 +416,7 @@ export default function AgentChat() {
 
               {!thinking && step === "occupation" && (
                 <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
                     {occupationOptions.map((o) => (
                       <button
                         key={o.value}
@@ -548,7 +548,7 @@ export default function AgentChat() {
               <div ref={endRef} />
             </div>
 
-            <div className="max-w-2xl w-full mx-auto xl:mx-0 mt-4 sticky bottom-0 pt-2" style={{ background: "#FAF7F2" }}>
+            <div className="max-w-4xl w-full mx-auto mt-4 sticky bottom-0 pt-2" style={{ background: "#FAF7F2" }}>
               <div className="flex items-center gap-2 bg-white border border-black/10 rounded-full px-2 py-1.5 shadow-sm">
                 <input
                   value={input}
@@ -556,10 +556,10 @@ export default function AgentChat() {
                   onKeyDown={(e) => e.key === "Enter" && handleFreeText()}
                   placeholder={
                     step === "age"
-                      ? "Type your age..."
+                      ? "Type your age... / अपनी उम्र लिखें..."
                       : step === "income"
-                      ? "Type approx. annual income in ₹..."
-                      : "Type your message..."
+                      ? "Type approx. annual income in ₹... / अनुमानित वार्षिक आय लिखें..."
+                      : "Type your message... / अपना संदेश लिखें..."
                   }
                   className="flex-1 px-3 py-1.5 text-sm focus:outline-none bg-transparent"
                 />
@@ -651,9 +651,20 @@ export default function AgentChat() {
             </div>
 
             <div className="bg-[#FFFBEB] border border-[#ffda24]/40 rounded-xl p-4">
-              <p className="text-sm font-bold text-black">Need Help?</p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-bold text-black">Need Help?</p>
+                <span className="text-[10px] font-semibold text-[#92400E] bg-[#ffda24]/30 rounded-full px-2 py-0.5">Prototype</span>
+              </div>
               <p className="text-xs text-black/60 font-medium mt-1">हम आपकी मदद के लिए यहाँ हैं। We are here to help you.</p>
-              <button className="mt-2 text-xs border border-[#ffda24] text-black font-semibold rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors">
+              <div className="mt-3 space-y-1.5">
+                <p className="flex items-center gap-2 text-xs font-semibold text-black/80">
+                  <Phone size={13} className="text-[#92400E] flex-shrink-0" /> 1800-XXX-XXXX
+                </p>
+                <a href="mailto:support@haqagent.example" className="flex items-center gap-2 text-xs font-semibold text-black/80 hover:underline">
+                  <Mail size={13} className="text-[#92400E] flex-shrink-0" /> support@haqagent.example
+                </a>
+              </div>
+              <button className="mt-3 text-xs border border-[#ffda24] text-black font-semibold rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors">
                 Contact Support
               </button>
             </div>
