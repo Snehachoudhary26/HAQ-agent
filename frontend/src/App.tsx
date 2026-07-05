@@ -67,8 +67,7 @@ export default function App() {
           <div className="flex items-center gap-2">
             <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-none">
-              <p className="font-semibold text-white text-sm sm:text-base">Haq Agent</p>
-              <p className="text-sm text-white font-bold hidden sm:block">Sarkari Yojana, Aap Ke Dwaar</p>
+              <p className="font-semibold text-white text-2xl sm:text-base">Haq Agent</p>
             </div>
           </div>
 
@@ -130,10 +129,10 @@ export default function App() {
             {/* Hero */}
             <section className="bg-white rounded-2xl border border-black/5 shadow-sm p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight">
-                  Har Yojana,<br />Har Haqdaar <span style={{ color: "#0A542E" }}>Tak</span>
+                <h1 className="text-3xl sm:text-3xl font-bold text-black leading-tight">
+                  हर योजना,<br />हर हकदार  <span style={{ color: "#0A542E" }}>तक</span>
                 </h1>
-                <p className="text-black text-medium sm:text-base mt-3 leading-relaxed">
+                <p className="text-black text-lg sm:text-base mt-3 font-semibold leading-relaxed">
                   An AI agent that finds the scheme plan for you, keeps you informed, and provides assistance.
                 </p>
                 <div className="flex flex-wrap gap-3 mt-5">
@@ -150,7 +149,7 @@ export default function App() {
                       <img key={c.src} src={`/images/${c.src}.jpg`} className="w-7 h-7 rounded-full border-2 border-white object-cover" style={{ objectPosition: c.pos }} />
                     ))}
                   </div>
-                  <p className="text-sm text-black/60 font-medium">Trusted by 1 Lakh+ citizens across Bharat</p>
+                  <p className="text-sm text-black font-medium">Trusted by citizens across Bharat</p>
                 </div>
               </div>
 
@@ -225,23 +224,23 @@ export default function App() {
           <aside className="space-y-4 lg:sticky lg:top-20 self-start">
             <div className="bg-[#F0FDF4] border border-[#0A542E]/15 rounded-2xl p-4">
               <p className="font-bold text-black">Chat with Haq Agent</p>
-              <p className="text-xs text-black mb-3">Aapka AI Saathi, Hamesha Saath</p>
+              <p className="text-xs text-black mb-3"> 🇮🇳 Aapka AI Saathi, Hamesha Saath 🇮🇳</p>
               <div className="bg-white rounded-xl p-3 mb-2.5 shadow-sm">
-                <p className="text-sm text-black">नमस्ते! 👋मैं आपकी कैसे मदद कर सकता हूं?</p>
+                <p className="text text-black">नमस्ते! 👋 मैं आपकी कैसे मदद कर सकता हूं?</p>
               </div>
               <div className="space-y-1.5 mb-3">
                 {chatSuggestions.map((s) => (
                   <Link
                     key={s}
                     to="/agent"
-                    className="flex items-center justify-between bg-white rounded-lg px-3 py-2 text-xs font-medium text-black hover:bg-[#0A542E]/5 transition-colors border border-black/5"
+                    className="flex items-center justify-between bg-white rounded-lg px-3 py-2 text font-medium text-black hover:bg-[#0A542E]/5 transition-colors border border-black/5"
                   >
                     {s} <ChevronRight size={14} className="text-black/30 flex-shrink-0" />
                   </Link>
                 ))}
               </div>
-              <Link to="/agent" className="w-full bg-[#0A542E] hover:bg-[#083d21] text-white text-sm font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 transition-colors">
-                <MessageCircle size={15} /> चैट शुरू करें
+              <Link to="/agent" className="w-full bg-[#0A542E] hover:bg-[#083d21] text-white text-lg font-semibold py-2.5 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                <MessageCircle size={18} /> चैट शुरू करें
               </Link>
             </div>
 
@@ -284,13 +283,13 @@ export default function App() {
             { icon: ShieldCheck, en: "AI Powered", hi: "Smart Assistance" },
             { icon: Lock, en: "Secure & Private", hi: "Your data is safe with us" },
             { icon: Users, en: "Trusted by Thousands", hi: "Across rural & urban India" },
-            { icon: Sparkles, en: "Made for Bharat", hi: "By Indians, For Indians" },
+            { icon: Sparkles, en: " 🇮🇳 Made for Bharat 🇮🇳", hi: "By Indians, For Indians" },
           ].map((b) => (
             <div key={b.en} className="flex items-center gap-2.5">
               <b.icon size={18} className="text-[#0A542E] flex-shrink-0" />
               <div>
-                <p className="text-xs font-bold text-black leading-tight">{b.en}</p>
-                <p className="text-xs text-black leading-tight">{b.hi}</p>
+                <p className="text font-bold text-black leading-tight">{b.en}</p>
+                <p className="text text-black leading-tight">{b.hi}</p>
               </div>
             </div>
           ))}
