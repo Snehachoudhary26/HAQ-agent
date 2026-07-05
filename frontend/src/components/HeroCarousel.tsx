@@ -58,7 +58,7 @@ export default function HeroCarousel() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-3xl h-[420px] sm:h-[480px] cursor-pointer select-none"
+      className="relative overflow-hidden rounded-3xl h-64 sm:h-80 md:h-full md:min-h-[380px] cursor-pointer select-none"
       onClick={() => setPaused((p) => !p)}
       role="region"
       aria-label="Live scheme alerts, tap to pause"

@@ -11,7 +11,7 @@ export default function AboutUs() {
             <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
               <p className="font-bold text-white text-base sm:text-lg">Haq Agent</p>
-              <p className="text-xs text-white/80 hidden sm:block">हर योजना, हर हकदार तक</p>
+              <p className="text-sm text-white/80 hidden sm:block">हर योजना, हर हकदार तक</p>
             </div>
           </Link>
           <nav className="hidden sm:flex items-center gap-8 text-sm font-medium text-white">

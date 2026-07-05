@@ -44,15 +44,15 @@ export default function Schemes() {
           <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
               <p className="font-bold text-white text-xl sm:text-2xl">Haq Agent</p>
-              <p className="text-sm text-white/80 hidden sm:block"> हर योजना, हर हकदार तक </p>
+              <p className="text-base text-white/80 hidden sm:block"> हर योजना, हर हकदार तक </p>
             </div>
           </a>
           <nav className="hidden sm:flex items-center gap-8 text-base font-medium text-white">
             <a href="/" className="hover:text-yellow-300">Home</a>
-            <a href="/schemes" className="font-bold border-b-2 border-yellow-300 pb-0.5" style={{ color: "#ffda24" }}>Schemes</a>
-            <a href="/agent" className="hover:text-yellow-300 flex items-center gap-1"><MessageCircle size={18} />Chat Agent</a>
+            <a href="/schemes" className="font-medium border-b-2 border-yellow-300 pb-0.5" style={{ color: "#ffda24" }}>Schemes</a>
+            <a href="/agent" className="hover:text-yellow-300 flex items-center gap-1"><MessageCircle size={16} />Chat Agent</a>
             
-            <a href="/notifications" className="hover:text-yellow-300 flex items-center gap-1"><Bell size={18} /> Notifications</a>
+            <a href="/notifications" className="hover:text-yellow-300 flex items-center gap-1"><Bell size={16} /> Notifications</a>
           </nav>
           <a href="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>Check My Eligibility</a>
         </div>

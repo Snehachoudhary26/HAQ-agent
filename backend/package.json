@@ -14,7 +14,8 @@
     "@supabase/supabase-js": "^2.108.2",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "resend": "^6.17.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",

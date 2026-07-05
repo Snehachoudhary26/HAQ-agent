@@ -9,7 +9,7 @@ export default function Logo({ size = 28 }: { size?: number }) {
       />
       <div className="leading-none">
         <p className="font-bold text-black text-sm sm:text-base">Haq Agent</p>
-        <p className="text-xs font-semibold" style={{ color: "#0A542E" }}>हर योजना, हर हकदार तक</p>
+        <p className="text-sm font-semibold" style={{ color: "#0A542E" }}>हर योजना, हर हकदार तक</p>
       </div>
     </div>
   );
