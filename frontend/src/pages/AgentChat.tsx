@@ -1,24 +1,12 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
-  Send,
-  Mic,
-  FileCheck2,
-  IndianRupee,
-  BellRing,
-  Sprout,
-  MessageCircle,
-  ListChecks,
-  FileText,
-  HelpCircle,
-  Trash2,
-  ChevronRight,
-  ShieldCheck,
-  Menu,
-  X,
+  Send, Mic, FileCheck2, IndianRupee, BellRing, GraduationCap, Sprout, Users,
+  HardHat, Building2, Grid3x3, MessageCircle, ListChecks, FileText, HelpCircle,
+  ChevronRight, ShieldCheck, Menu, X, Bell, Sparkles, Zap,
 } from "lucide-react";
-import { addNotification } from "../lib/notifications";
+import { addNotification, getNotifications } from "../lib/notifications";
 import { useVoiceInput } from "../hooks/useVoiceInput";
-import Logo from "../components/Logo";
 
 type Message = { role: "agent" | "user"; text: string };
 
@@ -46,12 +34,13 @@ type Match = {
 const API_BASE = "http://localhost:4000";
 type Step = "occupation" | "age" | "gender" | "land" | "bpl" | "income" | "done";
 
-const sidebarLinks = [
-  { icon: MessageCircle, label: "New Conversation" },
-  { icon: ListChecks, label: "My Schemes" },
-  { icon: FileText, label: "My Applications" },
-  { icon: BellRing, label: "Notifications", href: "/notifications" },
-  { icon: HelpCircle, label: "Help & Support" },
+const occupationOptions = [
+  { value: "student", en: "Student", hi: "छात्र", icon: GraduationCap, bg: "#DBEAFE", color: "#1E40AF" },
+  { value: "farmer", en: "Farmer", hi: "किसान", icon: Sprout, bg: "#DCFCE7", color: "#166534" },
+  { value: "retired", en: "Retired", hi: "सेवानिवृत्त", icon: Users, bg: "#F0FDF4", color: "#0A542E" },
+  { value: "daily-wage-laborer", en: "Daily Wage Laborer", hi: "दैनिक मजदूर", icon: HardHat, bg: "#FEF3C7", color: "#92400E" },
+  { value: "government-employee", en: "Government Employee", hi: "सरकारी कर्मचारी", icon: Building2, bg: "#F0FDF4", color: "#0A542E" },
+  { value: "other", en: "Other", hi: "अन्य", icon: Grid3x3, bg: "#F3F4F6", color: "#374151" },
 ];
 
 export default function AgentChat() {
@@ -69,12 +58,20 @@ export default function AgentChat() {
   const [sendingNotifs, setSendingNotifs] = useState(false);
   const [voiceLang, setVoiceLang] = useState<"hi-IN" | "en-IN">("en-IN");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [notifCount, setNotifCount] = useState(0);
   const { listening, supported, start, stop } = useVoiceInput();
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, thinking, matches]);
+
+  useEffect(() => {
+    const load = () => setNotifCount(getNotifications().length);
+    load();
+    window.addEventListener("haq-notifications-updated", load);
+    return () => window.removeEventListener("haq-notifications-updated", load);
+  }, []);
 
   function pushAgent(text: string) {
     setMessages((m) => [...m, { role: "agent", text }]);
@@ -168,17 +165,11 @@ export default function AgentChat() {
 
     if (step === "occupation") {
       const occMap: Record<string, string> = {
-        student: "student",
-        "छात्र": "student",
-        farmer: "farmer",
-        "किसान": "farmer",
-        retired: "retired",
-        "सेवानिवृत्त": "retired",
-        laborer: "daily-wage-laborer",
-        labourer: "daily-wage-laborer",
-        "मजदूर": "daily-wage-laborer",
-        government: "government-employee",
-        "सरकारी": "government-employee",
+        student: "student", "छात्र": "student",
+        farmer: "farmer", "किसान": "farmer",
+        retired: "retired", "सेवानिवृत्त": "retired",
+        laborer: "daily-wage-laborer", labourer: "daily-wage-laborer", "मजदूर": "daily-wage-laborer",
+        government: "government-employee", "सरकारी": "government-employee",
       };
       const match = Object.keys(occMap).find((k) => lower.includes(k));
       if (match) {
@@ -281,102 +272,128 @@ export default function AgentChat() {
   const matchPercent = matches && matches.length > 0 ? Math.min(95, 55 + matches.length * 15) : 0;
 
   return (
-    <div className="min-h-full bg-brand-cream flex">
-      {/* Sidebar (desktop: static, mobile: slide-over drawer) */}
+    <div className="min-h-screen flex" style={{ background: "#FAF7F2" }}>
+      {/* Sidebar */}
       <aside
-        className={`fixed sm:static inset-y-0 left-0 z-40 w-72 bg-[#0A542E] text-white flex flex-col transition-transform duration-300 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-72 flex flex-col transition-transform duration-300 relative overflow-hidden ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
+        style={{ background: "#0A542E" }}
       >
-        <div className="p-5 flex items-center justify-between">
+        <div className="p-5 flex items-center justify-between relative z-10">
           <div className="flex items-center gap-2">
             <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/40" />
             <div>
-              <p className="font-semibold leading-tight">Haq Agent</p>
-              <p className="text-[11px] text-white font-bold leading-tight">AI Assistant</p>
+              <p className="font-semibold text-white leading-tight">Haq Agent</p>
+              <p className="text-xs text-white/70 leading-tight">AI Assistant</p>
             </div>
           </div>
-          <button className="sm:hidden text-white/80" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
+          <button className="lg:hidden text-white/80" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
             <X size={20} />
           </button>
         </div>
 
         <button
           onClick={resetChat}
-          className="mx-4 mb-4 border border-[#ffda24]/60 text-[#ffda24] text-sm rounded-lg py-2 flex items-center justify-center gap-2 hover:bg-white/5 transition-colors"
+          className="mx-4 mb-4 border-2 border-[#ffda24]/70 text-[#ffda24] text-sm font-semibold rounded-xl py-2.5 flex items-center justify-center gap-2 hover:bg-white/5 transition-colors relative z-10"
         >
-          <MessageCircle size={20} /> New Conversation
+          <MessageCircle size={18} /> New Conversation
         </button>
 
-        <nav className="flex-1 px-3 space-y-1">
-          {sidebarLinks.slice(1).map((l) => (
-            <a
-              key={l.label}
-              href={l.href ?? "#"}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/90 hover:bg-white/10 transition-colors"
-            >
-              <l.icon size={16} />
-              {l.label}
-            </a>
-          ))}
+        <nav className="px-3 space-y-1 relative z-10">
+          <Link to="/schemes" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/90 hover:bg-white/10 transition-colors">
+            <ListChecks size={16} /> My Schemes
+          </Link>
+          <Link to="/track" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/90 hover:bg-white/10 transition-colors">
+            <FileText size={16} /> My Applications
+          </Link>
+          <Link to="/notifications" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-white/90 hover:bg-white/10 transition-colors">
+            <span className="flex items-center gap-3"><BellRing size={16} /> Notifications</span>
+            {notifCount > 0 && (
+              <span className="bg-[#ffda24] text-black text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">{notifCount}</span>
+            )}
+          </Link>
+          <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/90 hover:bg-white/10 transition-colors">
+            <HelpCircle size={16} /> Help & Support
+          </a>
         </nav>
 
-        <div className="m-4 bg-white/10 rounded-xl p-3.5 flex items-start gap-2">
+        {/* Landscape illustration filling remaining space */}
+        <div className="flex-1 relative mt-2">
+          <img src="/images/green.jpg" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,84,46,0) 0%, rgba(10,84,46,0.15) 60%, rgba(10,84,46,0.75) 100%)" }} />
+        </div>
+
+        <div className="m-4 bg-white/10 backdrop-blur-sm rounded-xl p-3.5 flex items-start gap-2 relative z-10">
           <ShieldCheck size={16} className="text-[#ffda24] flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-xs font-medium">Your data is safe with us</p>
-            <p className="text-[11px] text-white font-bold mt-0.5">
-              We use secure, encrypted systems to protect your information.
-            </p>
+            <p className="text-xs font-semibold text-white">Your data is safe with us</p>
+            <p className="text-xs text-white/75 mt-0.5">We use secure, encrypted systems to protect your information.</p>
           </div>
         </div>
       </aside>
 
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/40 z-30 sm:hidden" onClick={() => setSidebarOpen(false)} />
+        <div className="fixed inset-0 bg-black/40 z-30 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
       {/* Main column */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center gap-3 px-4 sm:px-6 py-3 border-b border-gray-200 bg-white">
-          <button className="sm:hidden text-black" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
+        <header className="flex items-center gap-3 px-4 sm:px-6 py-3 border-b border-black/5 bg-white sticky top-0 z-20">
+          <button className="lg:hidden text-black" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
             <Menu size={22} />
           </button>
-          <Logo size={26} />
-          <div className="ml-auto flex items-center gap-1 bg-gray-100 rounded-full p-0.5 text-xs">
+          <div className="flex items-center gap-2">
+            <img src="/images/ logo.jpg" alt="" className="w-8 h-8 rounded-full object-cover" />
+            <div className="leading-tight">
+              <p className="font-bold text-black text-sm">Haq Agent</p>
+              <p className="text-xs text-[#0A542E] font-semibold hidden sm:block">हर योजना, हर हकदार तक</p>
+            </div>
+          </div>
+          <div className="ml-auto flex items-center gap-2">
             <button
               onClick={() => setVoiceLang("en-IN")}
-              className={`px-2.5 py-1 rounded-full transition-colors ${
-                voiceLang === "en-IN" ? "bg-white shadow-sm font-medium text-black" : "text-black font-semibold"
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                voiceLang === "en-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
               }`}
             >
               English
             </button>
             <button
               onClick={() => setVoiceLang("hi-IN")}
-              className={`px-2.5 py-1 rounded-full transition-colors ${
-                voiceLang === "hi-IN" ? "bg-white shadow-sm font-medium text-black" : "text-black font-semibold"
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                voiceLang === "hi-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
               }`}
             >
               हिन्दी
             </button>
+            <Link to="/notifications" className="relative p-1.5" aria-label="Notifications">
+              <Bell size={20} className="text-black/70" />
+              {notifCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-[#ffda24] text-black text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  {notifCount}
+                </span>
+              )}
+            </Link>
           </div>
         </header>
 
-        <div className="flex-1 flex flex-col lg:flex-row min-h-0">
+        <div className="flex-1 flex flex-col xl:flex-row min-h-0">
           {/* Chat column */}
           <main className="flex-1 flex flex-col min-w-0 px-4 sm:px-6 py-5 overflow-y-auto">
-            <div className="max-w-2xl w-full mx-auto lg:mx-0 space-y-4 flex-1">
+            <div className="max-w-2xl w-full mx-auto xl:mx-0 space-y-4 flex-1">
               {messages.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div key={i} className={`flex gap-2.5 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   {m.role === "agent" && (
-                    <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0"><img src="/images/ logo.jpg" alt="" className="w-full h-full object-cover" /></div>
+                    <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-[#F0FDF4] flex items-center justify-center">
+                      <img src="/images/ logo.jpg" alt="" className="w-full h-full object-cover" />
+                    </div>
                   )}
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm sm:text-base ${
+                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm sm:text-base ${
                       m.role === "user"
                         ? "bg-[#0A542E] text-white rounded-br-sm"
-                        : "bg-[#0A542E]Light border border-[#0A542E]/40 rounded-bl-sm"
+                        : "bg-[#F0FDF4] border border-[#0A542E]/15 text-black rounded-bl-sm"
                     }`}
                   >
                     {m.text}
@@ -385,9 +402,11 @@ export default function AgentChat() {
               ))}
 
               {thinking && (
-                <div className="flex justify-start">
-                  <div className="w-7 h-7 rounded-full overflow-hidden mr-2 flex-shrink-0"><img src="/images/ logo.jpg" alt="" className="w-full h-full object-cover" /></div>
-                  <div className="bg-[#0A542E]Light border border-[#0A542E]/40 rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1">
+                <div className="flex gap-2.5 justify-start">
+                  <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-[#F0FDF4]">
+                    <img src="/images/ logo.jpg" alt="" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="bg-[#F0FDF4] border border-[#0A542E]/15 rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1 items-center">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0A542E]/50 animate-bounce [animation-delay:-0.3s]" />
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0A542E]/50 animate-bounce [animation-delay:-0.15s]" />
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0A542E]/50 animate-bounce" />
@@ -396,23 +415,42 @@ export default function AgentChat() {
               )}
 
               {!thinking && step === "occupation" && (
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {[
-                    { value: "student", en: "Student", hi: "छात्र" },
-                    { value: "farmer", en: "Farmer", hi: "किसान" },
-                    { value: "retired", en: "Retired", hi: "सेवानिवृत्त" },
-                    { value: "daily-wage-laborer", en: "Daily Wage Laborer", hi: "दैनिक मजदूर" },
-                    { value: "government-employee", en: "Government Employee", hi: "सरकारी कर्मचारी" },
-                  ].map((q) => (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                    {occupationOptions.map((o) => (
+                      <button
+                        key={o.value}
+                        onClick={() => handleOccupation(o.value)}
+                        className="flex items-center gap-3 bg-white border border-black/5 rounded-2xl p-4 hover:border-[#0A542E]/30 hover:shadow-sm transition-all text-left"
+                      >
+                        <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: o.bg }}>
+                          <o.icon size={20} style={{ color: o.color }} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-black text-sm">{o.en}</p>
+                          <p className="text-sm font-semibold" style={{ color: "#0A542E" }}>{o.hi}</p>
+                        </div>
+                        <ChevronRight size={18} className="text-black/25 flex-shrink-0" />
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="bg-[#FFFBEB] border border-[#ffda24]/40 rounded-2xl p-4 flex items-center gap-3 mt-3">
+                    <div className="w-9 h-9 rounded-full bg-[#ffda24]/30 flex items-center justify-center flex-shrink-0">
+                      <Sparkles size={16} className="text-[#92400E]" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-bold text-black">Not sure? No problem!</p>
+                      <p className="text-xs text-black/60">I can help you find schemes based on your situation.</p>
+                    </div>
                     <button
-                      key={q.value}
-                      onClick={() => handleOccupation(q.value)}
-                      className="group text-sm sm:text-base border border-[#0A542E]/30 rounded-full px-4 py-2 hover:bg-[#0A542E] hover:text-white transition-colors leading-snug bg-white"
+                      onClick={() => pushAgent("No problem — tell me a little about yourself and I'll figure out the right category.")}
+                      className="border-2 border-black/10 bg-white text-black text-xs font-bold px-3.5 py-2 rounded-lg whitespace-nowrap hover:bg-black/5 transition-colors flex-shrink-0"
                     >
-                      {q.en} <span className="text-black/70 font-bold group-hover:text-white transition-colors">/ {q.hi}</span>
+                      Tell me my options
                     </button>
-                  ))}
-                </div>
+                  </div>
+                </>
               )}
 
               {!thinking && step === "gender" && (
@@ -471,38 +509,38 @@ export default function AgentChat() {
               {!thinking && step === "done" && matches && (
                 <div className="space-y-3 pt-2">
                   {matches.length === 0 && (
-                    <div className="bg-white border border-gray-200 rounded-xl p-4 text-sm text-black font-semibold">
+                    <div className="bg-white border border-black/10 rounded-xl p-4 text-sm text-black font-semibold">
                       No matches yet — I'll notify you the moment a new scheme opens for your profile.
                     </div>
                   )}
                   {matches.map((m) => (
-                    <div key={m.schemeId} className="bg-white border border-gray-200 rounded-xl p-4">
+                    <div key={m.schemeId} className="bg-white border border-black/10 rounded-xl p-4">
                       <div className="flex items-start justify-between gap-3">
-                        <p className="text-sm font-medium">{m.name}</p>
-                        <span className="text-xs bg-[#0A542E]Light text-[#0A542E] rounded-full px-2 py-0.5 whitespace-nowrap capitalize border border-[#0A542E]/40">
+                        <p className="text-sm font-bold text-black">{m.name}</p>
+                        <span className="text-xs bg-[#F0FDF4] text-[#0A542E] rounded-full px-2 py-0.5 whitespace-nowrap capitalize border border-[#0A542E]/20">
                           {m.category}
                         </span>
                       </div>
-                      <p className="text-xs text-black font-semibold mt-1 flex items-center gap-1">
+                      <p className="text-xs text-black/70 font-semibold mt-1 flex items-center gap-1">
                         <IndianRupee size={12} /> {m.amount}
                       </p>
-                      <p className="text-xs text-black font-semibold mt-2">{m.reasons[0]}</p>
-                      <div className="mt-3 flex items-start gap-2 border-t border-gray-100 pt-3">
+                      <p className="text-xs text-black/70 font-medium mt-2">{m.reasons[0]}</p>
+                      <div className="mt-3 flex items-start gap-2 border-t border-black/5 pt-3">
                         <FileCheck2 size={14} className="text-[#0A542E] flex-shrink-0 mt-0.5" />
-                        <p className="text-xs text-black font-semibold">{m.documents.join(", ")}</p>
+                        <p className="text-xs text-black/70 font-medium">{m.documents.join(", ")}</p>
                       </div>
                     </div>
                   ))}
                   {sendingNotifs && (
-                    <div className="bg-[#0A542E]Light border border-[#0A542E]/20 rounded-xl p-3 flex items-center gap-2">
+                    <div className="bg-[#F0FDF4] border border-[#0A542E]/20 rounded-xl p-3 flex items-center gap-2">
                       <BellRing size={15} className="text-[#0A542E] animate-pulse flex-shrink-0" />
-                      <p className="text-xs text-[#0A542E]">Sending SMS and email confirmation...</p>
+                      <p className="text-xs text-[#0A542E] font-medium">Sending SMS and email confirmation...</p>
                     </div>
                   )}
                   {!sendingNotifs && matches.length > 0 && (
-                    <a href="/notifications" className="block text-center text-xs text-[#0A542E] underline pt-1">
+                    <Link to="/notifications" className="block text-center text-xs text-[#0A542E] font-semibold underline pt-1">
                       View sent notifications
-                    </a>
+                    </Link>
                   )}
                 </div>
               )}
@@ -510,8 +548,8 @@ export default function AgentChat() {
               <div ref={endRef} />
             </div>
 
-            <div className="max-w-2xl w-full mx-auto lg:mx-0 mt-4 sticky bottom-0 bg-brand-cream pt-2">
-              <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-2 py-1.5 shadow-sm">
+            <div className="max-w-2xl w-full mx-auto xl:mx-0 mt-4 sticky bottom-0 pt-2" style={{ background: "#FAF7F2" }}>
+              <div className="flex items-center gap-2 bg-white border border-black/10 rounded-full px-2 py-1.5 shadow-sm">
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -528,7 +566,7 @@ export default function AgentChat() {
                 <button
                   onClick={toggleMic}
                   className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
-                    listening ? "bg-red-50 text-red-600 animate-pulse" : "text-black font-semibold hover:bg-gray-100"
+                    listening ? "bg-red-50 text-red-600 animate-pulse" : "text-black/50 hover:bg-black/5"
                   }`}
                   aria-label={listening ? "Stop listening" : "Use voice"}
                   title={supported ? "" : "Voice input not supported in this browser"}
@@ -537,85 +575,85 @@ export default function AgentChat() {
                 </button>
                 <button
                   onClick={handleFreeText}
-                  className="w-9 h-9 rounded-full bg-[#0A542E] text-white flex items-center justify-center flex-shrink-0 hover:bg-[#037D6F] transition-colors"
+                  className="w-9 h-9 rounded-full bg-[#0A542E] text-white flex items-center justify-center flex-shrink-0 hover:bg-[#083d21] transition-colors"
                   aria-label="Send"
                 >
                   <Send size={15} />
                 </button>
               </div>
-              <p className="text-[11px] text-black text-center mt-1.5">
-                आप बोल भी सकते हैं... &nbsp;·&nbsp; You can also speak
+              <p className="text-xs text-black/50 text-center mt-2">
+                आप बोल भी सकते हैं 🎤 &nbsp;·&nbsp; You can also speak
               </p>
             </div>
           </main>
 
-          {/* Profile / eligibility panel — stacks below chat on mobile, side panel on desktop */}
-          <aside className="w-full lg:w-64 flex-shrink-0 border-t lg:border-t-0 lg:border-l border-gray-200 bg-white px-4 sm:px-6 py-5 space-y-4 lg:overflow-y-auto">
-            <div className="bg-[#0A542E]Light border border-[#0A542E]/40 rounded-xl p-4">
-              <p className="text-sm font-medium text-black mb-3">Your Profile Snapshot</p>
+          {/* Profile / eligibility panel */}
+          <aside className="w-full xl:w-72 flex-shrink-0 border-t xl:border-t-0 xl:border-l border-black/5 bg-white px-4 sm:px-6 py-5 space-y-4 xl:overflow-y-auto">
+            <div className="bg-[#F0FDF4] border border-[#0A542E]/20 rounded-xl p-4">
+              <p className="text-sm font-bold text-black mb-3">Your Profile Snapshot</p>
               <div className="space-y-2">
                 {profileSnapshot.map((p) => (
                   <div key={p.label} className="flex items-center justify-between text-xs">
-                    <span className="text-black font-semibold">{p.label}</span>
-                    <span className="font-medium text-black capitalize">{p.value}</span>
+                    <span className="text-black/60 font-medium">{p.label}</span>
+                    <span className="font-bold text-black capitalize">{p.value}</span>
                   </div>
                 ))}
               </div>
+              <button className="w-full mt-3 border border-[#0A542E]/30 text-[#0A542E] text-xs font-bold py-2 rounded-lg hover:bg-[#0A542E]/5 transition-colors">
+                Update Profile
+              </button>
             </div>
 
             {matches && matches.length > 0 && (
-              <div className="border border-gray-200 rounded-xl p-4">
-                <p className="text-sm font-medium text-black mb-3">Eligibility Match</p>
+              <div className="border border-black/10 rounded-xl p-4">
+                <p className="text-sm font-bold text-black mb-3">Eligibility Match</p>
                 <div className="flex items-center gap-3">
                   <div className="relative w-14 h-14 flex-shrink-0">
                     <svg viewBox="0 0 36 36" className="w-14 h-14 -rotate-90">
                       <circle cx="18" cy="18" r="15.5" fill="none" stroke="#F0FDF4" strokeWidth="3.5" />
                       <circle
-                        cx="18"
-                        cy="18"
-                        r="15.5"
-                        fill="none"
-                        stroke="#059669"
-                        strokeWidth="3.5"
-                        strokeDasharray={`${matchPercent} 100`}
-                        strokeLinecap="round"
+                        cx="18" cy="18" r="15.5" fill="none" stroke="#059669" strokeWidth="3.5"
+                        strokeDasharray={`${matchPercent} 100`} strokeLinecap="round"
                       />
                     </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-[#0A542E]">
+                    <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-[#0A542E]">
                       {matchPercent}%
                     </span>
                   </div>
-                  <p className="text-xs text-black font-semibold">
+                  <p className="text-xs text-black/70 font-semibold">
                     You're eligible for {matches.length} scheme{matches.length > 1 ? "s" : ""}.
                   </p>
                 </div>
               </div>
             )}
 
-            <div className="border border-gray-200 rounded-xl p-4">
-              <p className="text-sm font-medium text-black mb-3">Quick Actions</p>
+            <div className="border border-black/10 rounded-xl p-4">
+              <p className="text-sm font-bold text-black mb-3 flex items-center gap-1.5">
+                <Zap size={14} className="text-[#ffda24]" fill="#ffda24" /> Quick Actions
+              </p>
               <div className="space-y-1">
                 {[
-                  { label: "Document Checklist", icon: FileText },
-                  { label: "Track Application", icon: ListChecks },
-                  { label: "Talk to Support", icon: HelpCircle },
+                  { label: "Document Checklist", icon: FileText, href: "#" },
+                  { label: "Track Application", icon: ListChecks, href: "/track" },
+                  { label: "Talk to Support", icon: HelpCircle, href: "#" },
                 ].map((a) => (
-                  <button
+                  <Link
                     key={a.label}
-                    className="w-full flex items-center gap-2 text-xs text-black font-medium py-1.5 hover:text-[#0A542E] transition-colors"
+                    to={a.href}
+                    className="w-full flex items-center gap-2 text-xs text-black/70 font-semibold py-1.5 hover:text-[#0A542E] transition-colors"
                   >
                     <a.icon size={14} />
                     <span className="flex-1 text-left">{a.label}</span>
                     <ChevronRight size={13} />
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>
 
-            <div className="bg-[#ffda24]/10 border border-[#ffda24]/30 rounded-xl p-4">
-              <p className="text-sm font-medium text-black">Need Help?</p>
-              <p className="text-sm text-black font-semibold mt-1">हम आपकी मदद के लिए यहाँ हैं। We are here to help you.</p>
-              <button className="mt-2 text-xs border border-[#ffda24] text-black rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors">
+            <div className="bg-[#FFFBEB] border border-[#ffda24]/40 rounded-xl p-4">
+              <p className="text-sm font-bold text-black">Need Help?</p>
+              <p className="text-xs text-black/60 font-medium mt-1">हम आपकी मदद के लिए यहाँ हैं। We are here to help you.</p>
+              <button className="mt-2 text-xs border border-[#ffda24] text-black font-semibold rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors">
                 Contact Support
               </button>
             </div>

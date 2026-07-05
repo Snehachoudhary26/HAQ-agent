@@ -159,8 +159,8 @@ export default function App() {
             {/* Stats strip */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {stats.map((s) => (
-                <div key={s.label} className="bg-[#0A542E] text-white rounded-xl p-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
+                <div key={s.label} className="bg-[#0A542E]  text-white rounded-xl p-4 flex items-center gap-3">
+                  <div className="w-10 h-10  rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
                     <s.icon size={18} />
                   </div>
                   <div>
@@ -222,11 +222,11 @@ export default function App() {
 
           {/* RIGHT COLUMN — sidebar */}
           <aside className="space-y-4 lg:sticky lg:top-20 self-start">
-            <div className="bg-[#F0FDF4] border border-[#0A542E]/15 rounded-2xl p-4">
+            <div className="bg-[#F0FDF4] border border-[#0A542E] rounded-2xl p-4">
               <p className="font-bold text-black">Chat with Haq Agent</p>
               <p className="text-xs text-black mb-3"> 🇮🇳 Aapka AI Saathi, Hamesha Saath 🇮🇳</p>
               <div className="bg-white rounded-xl p-3 mb-2.5 shadow-sm">
-                <p className="text text-black">नमस्ते! 👋 मैं आपकी कैसे मदद कर सकता हूं?</p>
+                <p className="text text-black ">नमस्ते! 👋 मैं आपकी कैसे मदद कर सकता हूं?</p>
               </div>
               <div className="space-y-1.5 mb-3">
                 {chatSuggestions.map((s) => (
@@ -244,7 +244,7 @@ export default function App() {
               </Link>
             </div>
 
-            <div className="bg-white border border-black/5 rounded-2xl p-4">
+            <div className="bg-white border border-[#0A542E] rounded-2xl p-4">
               <div className="flex items-center justify-between mb-3">
                 <p className="font-bold text-black text-sm">Recent Notifications</p>
                 <Link to="/notifications" className="text-xs font-semibold text-[#0A542E]">View All</Link>
@@ -268,7 +268,7 @@ export default function App() {
             <div className="bg-[#0A542E] rounded-2xl p-4 relative overflow-hidden">
               <p className="text-white font-bold leading-tight">कभी मौका मिस ना हो</p>
               <p className="text-white font-bold  text mt-1.5 mb-4 max-w-[70%]">
-               जब भी आप किसी योजना के लिए पात्र हों तो तुरंत अलर्ट पाएं।
+            जब भी आप किसी योजना के लिए पात्र हों तो तुरंत अलर्ट पाएं।
               </p>
               <Link to="/notifications" className="inline-flex items-center gap-1.5 bg-[#ffda24] text-black text-xs font-bold px-3.5 py-2 rounded-lg">
                 <BellRing size={13} /> Enable Notifications
