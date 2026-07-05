@@ -8,7 +8,7 @@ export default function AboutUs() {
       <header style={{ background: "#0A542E" }} className="text-white sticky top-0 z-50 shadow-lg">
         <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5">
-            <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
+            <img src="/images/logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
               <p className="font-bold text-white text-base sm:text-lg">Haq Agent</p>
               <p className="text-sm text-white/80 hidden sm:block">हर योजना, हर हकदार तक</p>
@@ -112,7 +112,7 @@ export default function AboutUs() {
         {/* Who built this */}
         <section className="max-w-2xl mx-auto text-center">
           <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-4" style={{ borderColor: "#0A542E" }}>
-            <img src="/images/ logo.jpg" alt="Haq Agent" className="w-full h-full object-cover" />
+            <img src="/images/logo.jpg" alt="Haq Agent" className="w-full h-full object-cover" />
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-black mb-1">Sneha Choudhary</h2>
           <p className="text-base font-bold mb-1" style={{ color: "#0A542E" }}>B.Tech Final Year — CSE (Data Science)</p>

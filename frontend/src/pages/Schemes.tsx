@@ -124,7 +124,7 @@ export default function Schemes() {
       <header className="bg-[#0A542E] text-white sticky top-0 z-50 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
+            <img src="/images/logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-none">
               <p className="font-semibold text-white text-sm sm:text-base">Haq Agent</p>
               <p className="text-sm text-white font-bold hidden sm:block">हर योजना, हर हकदार तक</p>

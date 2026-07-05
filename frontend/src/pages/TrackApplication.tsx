@@ -95,7 +95,7 @@ export default function TrackApplication() {
       <header style={{ background: "#0A542E" }} className="text-white sticky top-0 z-50 shadow-lg">
         <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
-            <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
+            <img src="/images/logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
               <p className="font-bold text-white text-base sm:text-lg">Haq Agent</p>
               <p className="text-sm text-white/80 hidden sm:block">हर योजना, हर हकदार तक</p>

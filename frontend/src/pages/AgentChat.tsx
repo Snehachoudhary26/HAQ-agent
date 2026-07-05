@@ -282,7 +282,7 @@ export default function AgentChat() {
       >
         <div className="p-5 flex items-center justify-between relative z-10">
           <div className="flex items-center gap-2">
-            <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/40" />
+            <img src="/images/logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/40" />
             <div>
               <p className="font-semibold text-white leading-tight">Haq Agent</p>
               <p className="text-xs text-white/70 leading-tight">AI Assistant</p>
@@ -344,7 +344,7 @@ export default function AgentChat() {
             <Menu size={22} />
           </button>
           <div className="flex items-center gap-2">
-            <img src="/images/ logo.jpg" alt="" className="w-8 h-8 rounded-full object-cover" />
+            <img src="/images/logo.jpg" alt="" className="w-8 h-8 rounded-full object-cover" />
             <div className="leading-tight">
               <p className="font-bold text-black text-sm">Haq Agent</p>
               <p className="text-xs text-[#0A542E] font-semibold hidden sm:block">हर योजना, हर हकदार तक</p>
@@ -386,7 +386,7 @@ export default function AgentChat() {
                 <div key={i} className={`flex gap-2.5 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   {m.role === "agent" && (
                     <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-[#F0FDF4] flex items-center justify-center">
-                      <img src="/images/ logo.jpg" alt="" className="w-full h-full object-cover" />
+                      <img src="/images/logo.jpg" alt="" className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div
@@ -404,7 +404,7 @@ export default function AgentChat() {
               {thinking && (
                 <div className="flex gap-2.5 justify-start">
                   <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-[#F0FDF4]">
-                    <img src="/images/ logo.jpg" alt="" className="w-full h-full object-cover" />
+                    <img src="/images/logo.jpg" alt="" className="w-full h-full object-cover" />
                   </div>
                   <div className="bg-[#F0FDF4] border border-[#0A542E]/15 rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1 items-center">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0A542E]/50 animate-bounce [animation-delay:-0.3s]" />

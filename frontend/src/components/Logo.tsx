@@ -2,7 +2,7 @@ export default function Logo({ size = 28 }: { size?: number }) {
   return (
     <div className="flex items-center gap-2">
       <img
-        src="/images/ logo.jpg"
+        src="/images/logo.jpg"
         alt="Haq Agent"
         style={{ width: size, height: size }}
         className="rounded-full object-cover border-2 border-[#0A542E]/20"

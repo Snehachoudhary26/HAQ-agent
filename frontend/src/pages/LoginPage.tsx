@@ -175,7 +175,7 @@ export default function LoginPage() {
         style={{ background: "linear-gradient(160deg, #0A542E 0%, #073d21 100%)" }}
       >
         <Link to="/" className="flex items-center gap-2.5 relative z-10">
-          <img src="/images/ logo.jpg" alt="Haq Agent" className="w-11 h-11 rounded-full object-cover border-2 border-white/40" />
+          <img src="/images/logo.jpg" alt="Haq Agent" className="w-11 h-11 rounded-full object-cover border-2 border-white/40" />
           <div className="leading-tight">
             <p className="font-bold text-white text-lg">Haq Agent</p>
             <p className="text-xs text-white/80">Sarkari Yojana Aap Ke Dwaar</p>
@@ -231,7 +231,7 @@ export default function LoginPage() {
         <div className="relative z-10 w-full max-w-md">
           {/* Mobile-only header */}
           <Link to="/" className="lg:hidden flex flex-col items-center gap-2 mb-6 text-center">
-            <img src="/images/ logo.jpg" alt="Haq Agent" className="w-16 h-16 rounded-full object-cover border-2 border-white/50" />
+            <img src="/images/logo.jpg" alt="Haq Agent" className="w-16 h-16 rounded-full object-cover border-2 border-white/50" />
             <p className="font-bold text-xl text-white">Haq Agent</p>
           </Link>
 
@@ -240,7 +240,7 @@ export default function LoginPage() {
               <div className="px-7 sm:px-9 py-8">
                 {/* Logo (desktop, inside card top) */}
                 <div className="hidden lg:flex flex-col items-center mb-6">
-                  <img src="/images/ logo.jpg" alt="Haq Agent" className="w-14 h-14 rounded-full object-cover mb-2" />
+                  <img src="/images/logo.jpg" alt="Haq Agent" className="w-14 h-14 rounded-full object-cover mb-2" />
                   <p className="font-bold text-lg" style={{ color: "#0A542E" }}>
                     Haq <span className="text-black">Agent</span>
                   </p>
