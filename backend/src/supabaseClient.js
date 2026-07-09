@@ -2,12 +2,14 @@ require("dotenv").config();
 const { createClient } = require("@supabase/supabase-js");
 
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
+const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
+const secretKey = process.env.SUPABASE_SECRET_KEY;
 
-if (!supabaseUrl || !supabaseSecretKey) {
-  console.error("Missing SUPABASE_URL or SUPABASE_SECRET_KEY in .env file");
+if (!supabaseUrl || !publishableKey || !secretKey) {
+  console.error("Missing SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, or SUPABASE_SECRET_KEY in .env file");
 }
 
-const supabase = createClient(supabaseUrl, supabaseSecretKey);
+const supabaseAuth = createClient(supabaseUrl, publishableKey);
+const supabaseAdmin = createClient(supabaseUrl, secretKey);
 
-module.exports = supabase;
+module.exports = { supabaseAuth, supabaseAdmin };

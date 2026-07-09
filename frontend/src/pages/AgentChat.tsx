@@ -92,8 +92,7 @@ export default function AgentChat() {
       setThinking(false);
       if (data.matches?.length) {
         pushAgent(
-          `Good news — based on what you've shared, you qualify for ${data.matches.length} scheme${
-            data.matches.length > 1 ? "s" : ""
+          `Good news — based on what you've shared, you qualify for ${data.matches.length} scheme${data.matches.length > 1 ? "s" : ""
           }. Here's what I found:`
         );
         setMatches(data.matches);
@@ -275,14 +274,13 @@ export default function AgentChat() {
     <div className="min-h-screen flex" style={{ background: "#FAF7F2" }}>
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 w-72 flex flex-col transition-transform duration-300 relative overflow-hidden ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-72 flex flex-col transition-transform duration-300 relative overflow-hidden ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          }`}
         style={{ background: "#0A542E" }}
       >
         <div className="p-5 flex items-center justify-between relative z-10">
           <div className="flex items-center gap-2">
-            <img src="/images/ logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/40" />
+            <img src="/images/favicon.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-whi" />
             <div>
               <p className="font-semibold text-white leading-tight">Haq Agent</p>
               <p className="text-xs text-white/70 leading-tight">AI Assistant</p>
@@ -320,7 +318,7 @@ export default function AgentChat() {
 
         {/* Landscape illustration filling remaining space */}
         <div className="flex-1 relative mt-2">
-          <img src="/images/green.jpg" className="absolute inset-0 w-full h-full object-cover" />
+          <img src="/images/green.jpg" alt="" className="absolute bottom-0 left-0 w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,84,46,0) 0%, rgba(10,84,46,0.15) 60%, rgba(10,84,46,0.75) 100%)" }} />
         </div>
 
@@ -344,7 +342,7 @@ export default function AgentChat() {
             <Menu size={22} />
           </button>
           <div className="flex items-center gap-2">
-            <img src="/images/ logo.jpg" alt="" className="w-8 h-8 rounded-full object-cover" />
+            <img src="/images/favicon.jpg" alt="" className="w-8 h-8 rounded-full object-cover" />
             <div className="leading-tight">
               <p className="font-bold text-black text-sm">Haq Agent</p>
               <p className="text-xs text-[#0A542E] font-semibold hidden sm:block">हर योजना, हर हकदार तक</p>
@@ -353,17 +351,15 @@ export default function AgentChat() {
           <div className="ml-auto flex items-center gap-2">
             <button
               onClick={() => setVoiceLang("en-IN")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                voiceLang === "en-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
-              }`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${voiceLang === "en-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
+                }`}
             >
               <Globe size={13} /> English
             </button>
             <button
               onClick={() => setVoiceLang("hi-IN")}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                voiceLang === "hi-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
-              }`}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${voiceLang === "hi-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
+                }`}
             >
               हिन्दी
             </button>
@@ -386,15 +382,14 @@ export default function AgentChat() {
                 <div key={i} className={`flex gap-2.5 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   {m.role === "agent" && (
                     <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-[#F0FDF4] flex items-center justify-center">
-                      <img src="/images/ logo.jpg" alt="" className="w-full h-full object-cover" />
+                      <img src="/images/favicon.jpg" alt="" className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm sm:text-base ${
-                      m.role === "user"
-                        ? "bg-[#0A542E] text-white rounded-br-sm"
-                        : "bg-[#F0FDF4] border border-[#0A542E]/15 text-black rounded-bl-sm"
-                    }`}
+                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm sm:text-base ${m.role === "user"
+                      ? "bg-[#0A542E] text-white rounded-br-sm"
+                      : "bg-[#F0FDF4] border border-[#0A542E]/15 text-black rounded-bl-sm"
+                      }`}
                   >
                     {m.text}
                   </div>
@@ -558,16 +553,15 @@ export default function AgentChat() {
                     step === "age"
                       ? "Type your age... / अपनी उम्र लिखें..."
                       : step === "income"
-                      ? "Type approx. annual income in ₹... / अनुमानित वार्षिक आय लिखें..."
-                      : "Type your message... / अपना संदेश लिखें..."
+                        ? "Type approx. annual income in ₹... / अनुमानित वार्षिक आय लिखें..."
+                        : "Type your message... / अपना संदेश लिखें..."
                   }
                   className="flex-1 px-3 py-1.5 text-sm focus:outline-none bg-transparent"
                 />
                 <button
                   onClick={toggleMic}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
-                    listening ? "bg-red-50 text-red-600 animate-pulse" : "text-black/50 hover:bg-black/5"
-                  }`}
+                  className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${listening ? "bg-red-50 text-red-600 animate-pulse" : "text-black/50 hover:bg-black/5"
+                    }`}
                   aria-label={listening ? "Stop listening" : "Use voice"}
                   title={supported ? "" : "Voice input not supported in this browser"}
                 >

@@ -51,25 +51,16 @@ const collageImages = [
 export default function App() {
   const [count, setCount] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("haq_user_id"));
-  
+const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("haq_user_id"));
+  useEffect(() => {
+    const load = () => setCount(getNotifications().length);
+    load();
+    window.addEventListener("haq-notifications-updated", load);
+    return () => window.removeEventListener("haq-notifications-updated", load);
+  }, []);
 
-useEffect(() => {
-  const load = () => setCount(getNotifications().length);
-  load();
-  window.addEventListener("haq-notifications-updated", load);
-  return () => window.removeEventListener("haq-notifications-updated", load);
-}, []);
-
-useEffect(() => {
-  const sync = () => setIsLoggedIn(!!localStorage.getItem("haq_user_id"));
-  window.addEventListener("haq-auth-changed", sync);
-  return () => window.removeEventListener("haq-auth-changed", sync);
-}, []);
-
-return (
-  <div className="min-h-full" style={{ background: "#FAF7F2" }}>
-
+  return (
+    <div className="min-h-full" style={{ background: "#FAF7F2" }}>
       {/* Header */}
       <header className="bg-[#0A542E] text-white sticky top-0 z-50 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between">
@@ -112,18 +103,10 @@ return (
             <button className="lg:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
               <Menu size={22} />
             </button>
-            {isLoggedIn ? (
-              <button
-                onClick={() => { localStorage.removeItem("haq_user_id"); setIsLoggedIn(false); }}
-                className="hidden sm:block bg-white text-[#0A542E] font-semibold text-sm px-4 py-1.5 rounded-full hover:bg-white/90 transition-colors"
-              >
-                Logout
-              </button>
-            ) : (
-              <Link to="/login" className="hidden sm:block bg-white text-[#0A542E] font-semibold text-sm px-4 py-1.5 rounded-full hover:bg-white/90 transition-colors">
-                Login
-              </Link>
-            )}
+                          Login
+            </Link><Link to="/login" className="hidden sm:block bg-white text-[#0A542E] font-semibold text-sm px-4 py-1.5 rounded-full hover:bg-white/90 transition-colors">
+              Login
+            </Link>
           </div>
         </div>
 

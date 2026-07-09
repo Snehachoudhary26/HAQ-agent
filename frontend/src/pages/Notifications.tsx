@@ -132,16 +132,19 @@ export default function Notifications() {
             className="rounded-2xl p-6 sm:p-7 relative overflow-hidden flex items-center gap-4"
             style={{ background: "#0A542E" }}
           >
-            <img src="/images/sunset.jpg" className="absolute inset-0 w-full h-full object-cover opacity-25" />
+            <img
+              src="/images/sunset.jpg"
+              className="absolute top-0 right-0 w-96 h-full object-cover"
+            />
             <div className="absolute inset-0" style={{ background: "linear-gradient" }} />
             <div className="w-11 h-11 rounded-full bg-white/ flex items-center justify-center flex-shrink-0 relative z-10">
-              <BellRing size={20} className="text-white" />
+              <BellRing size={22} className="text-white" />
             </div>
             <div className="relative z-10">
               <p className="text-white font-bold text-lg">
                 {unreadCount === 0 ? "You're all caught up! 🎉" : `You have ${unreadCount} new update${unreadCount > 1 ? "s" : ""}`}
               </p>
-              <p className="text-white/80 text-sm mt-0.5">
+              <p className="text-white text mt-0.5">
                 {unreadCount === 0 ? "No unread notifications. You'll see new updates here." : "Tap a notification below to view details."}
               </p>
             </div>
