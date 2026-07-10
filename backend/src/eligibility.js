@@ -1,10 +1,5 @@
 const schemes = require("./data/schemes.json");
 
-/**
- * Checks a user profile against every scheme's eligibility rules.
- * Returns matched schemes with a plain-language reason — this is the
- * "explainable agent" piece from the pitch deck (not a black box).
- */
 function checkEligibility(profile) {
   const results = [];
 
@@ -13,6 +8,8 @@ function checkEligibility(profile) {
     let eligible = true;
 
     const rule = scheme.eligibility;
+    const ageOverrideApplies =
+      rule.minAgeOverride !== undefined && profile.age >= rule.minAgeOverride;
 
     if (rule.occupation && !rule.occupation.includes(profile.occupation)) {
       eligible = false;
@@ -29,23 +26,19 @@ function checkEligibility(profile) {
       reasons.push("Income tax payers are excluded");
     }
     if (rule.minAge !== undefined) {
-      const ageOk =
-        (profile.age >= rule.minAge) ||
-        (rule.minAgeOverride !== undefined && profile.age >= rule.minAgeOverride);
+      const ageOk = profile.age >= rule.minAge || ageOverrideApplies;
       if (!ageOk) eligible = false;
     }
-    if (rule.minAgeOverride !== undefined && profile.age >= rule.minAgeOverride) {
-      // age override alone can satisfy schemes like PMJAY 70+ regardless of other criteria
-      eligible = true;
+    if (ageOverrideApplies) {
       reasons.push(`Automatically eligible — age ${profile.age} meets the ${rule.minAgeOverride}+ universal coverage rule`);
     }
     if (rule.belowPovertyLine !== undefined && profile.belowPovertyLine !== rule.belowPovertyLine) {
-      if (!(rule.minAgeOverride && profile.age >= rule.minAgeOverride)) {
+      if (!ageOverrideApplies) {
         eligible = false;
       }
     }
     if (rule.seccListed !== undefined && profile.seccListed !== rule.seccListed) {
-      if (!(rule.minAgeOverride && profile.age >= rule.minAgeOverride)) {
+      if (!ageOverrideApplies) {
         eligible = false;
       }
     }

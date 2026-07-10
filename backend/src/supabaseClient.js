@@ -1,15 +1,20 @@
-require("dotenv").config();
+if (!process.env.VERCEL) {
+  require("dotenv").config();
+}
+
 const { createClient } = require("@supabase/supabase-js");
 
 const supabaseUrl = process.env.SUPABASE_URL;
-const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
-const secretKey = process.env.SUPABASE_SECRET_KEY;
+const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
 
-if (!supabaseUrl || !publishableKey || !secretKey) {
-  console.error("Missing SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, or SUPABASE_SECRET_KEY in .env file");
+if (!supabaseUrl || !supabaseSecretKey) {
+  console.error(
+    "[supabaseClient] Missing SUPABASE_URL or SUPABASE_SECRET_KEY.\n" +
+    "  Local dev: add them to backend/.env (see backend/.env.example)\n" +
+    "  Vercel: add them in Project Settings > Environment Variables"
+  );
 }
 
-const supabaseAuth = createClient(supabaseUrl, publishableKey);
-const supabaseAdmin = createClient(supabaseUrl, secretKey);
+const supabase = createClient(supabaseUrl, supabaseSecretKey);
 
-module.exports = { supabaseAuth, supabaseAdmin };
+module.exports = supabase;

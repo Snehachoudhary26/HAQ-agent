@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { useFirebasePhoneAuth } from "../hooks/useFirebasePhoneAuth";
 
-const API_BASE = "http://localhost:4000";
+import { API_BASE } from "../lib/config";
 
 type AuthMode = "login" | "signup";
 type Step = "form" | "otp" | "success";

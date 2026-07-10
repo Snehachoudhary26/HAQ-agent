@@ -31,7 +31,7 @@ type Match = {
   reasons: string[];
 };
 
-const API_BASE = "http://localhost:4000";
+import { API_BASE } from "../lib/config";
 type Step = "occupation" | "age" | "gender" | "land" | "bpl" | "income" | "done";
 
 const occupationOptions = [
