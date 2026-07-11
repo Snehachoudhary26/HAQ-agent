@@ -378,29 +378,29 @@ export default function AgentChat() {
 
       {/* Main column */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center gap-3 px-4 sm:px-6 py-3 border-b border-black/5 bg-white sticky top-0 z-20">
-          <button className="lg:hidden text-black" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
+        <header style={{ background: "#0A542E" }} className="flex items-center gap-3 px-4 sm:px-6 py-3 text-white sticky top-0 z-20 shadow-lg">
+          <button className="lg:hidden text-white" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
             <Menu size={22} />
           </button>
           <div className="flex items-center gap-2">
-            <img src="/images/favicon.jpg" alt="" className="w-8 h-8 rounded-full object-cover" />
+            <img src="/images/favicon.jpg" alt="" className="w-8 h-8 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
-              <p className="font-bold text-black text-sm">Haq Agent</p>
-              <p className="text-xs text-[#0A542E] font-semibold hidden sm:block">हर योजना, हर हकदार तक</p>
+              <p className="font-bold text-white text-sm">Haq Agent</p>
+              <p className="text-xs text-white/80 font-semibold hidden sm:block">हर योजना, हर हकदार तक</p>
             </div>
           </div>
 
-          <nav className="hidden lg:flex items-center gap-1 text-sm text-black/80 ml-4">
-            <Link to="/" className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 hover:text-[#0A542E] font-semibold">
+          <nav className="hidden lg:flex items-center gap-1 text-sm text-white ml-4">
+            <Link to="/" className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 hover:text-yellow-300 font-semibold">
               <Home size={16} /> Home
             </Link>
-            <Link to="/schemes" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-[#0A542E] font-semibold">
+            <Link to="/schemes" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-yellow-300 font-semibold">
               <ListChecks size={16} /> Schemes
             </Link>
-            <Link to="/agent" className="flex items-center gap-1.5 px-3 py-1.5 text-[#0A542E] font-semibold">
+            <Link to="/agent" className="flex items-center gap-1.5 px-3 py-1.5 font-bold border-b-2 pb-0.5" style={{ color: "#ffda24", borderColor: "#ffda24" }}>
               <MessageCircle size={16} /> Chat Agent
             </Link>
-            <Link to="/track" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-[#0A542E] font-semibold">
+            <Link to="/track" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-yellow-300 font-semibold">
               <ClipboardList size={16} /> Track Application
             </Link>
           </nav>
@@ -408,20 +408,20 @@ export default function AgentChat() {
           <div className="ml-auto flex items-center gap-2">
             <button
               onClick={() => setVoiceLang("en-IN")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${voiceLang === "en-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${voiceLang === "en-IN" ? "bg-white text-[#0A542E]" : "bg-white/10 text-white/80"
                 }`}
             >
               <Globe size={13} /> English
             </button>
             <button
               onClick={() => setVoiceLang("hi-IN")}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${voiceLang === "hi-IN" ? "bg-[#0A542E] text-white" : "bg-black/5 text-black/60"
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${voiceLang === "hi-IN" ? "bg-white text-[#0A542E]" : "bg-white/10 text-white/80"
                 }`}
             >
               हिन्दी
             </button>
             <Link to="/notifications" className="relative p-1.5" aria-label="Notifications">
-              <Bell size={20} className="text-black/70" />
+              <Bell size={20} className="text-white" />
               {notifCount > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 bg-[#ffda24] text-black text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {notifCount}

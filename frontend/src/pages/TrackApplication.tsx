@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Search, CheckCircle2, Clock, AlertCircle, FileText, Bell, ChevronDown, ChevronUp, Phone, MessageCircle, Loader2 } from "lucide-react";
 import { API_BASE } from "../lib/config";
 
@@ -121,24 +122,24 @@ export default function TrackApplication() {
     <div className="min-h-full bg-white">
       <header style={{ background: "#0A542E" }} className="text-white sticky top-0 z-50 shadow-lg">
         <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2.5">
+          <Link to="/" className="flex items-center gap-2.5">
             <img src="/images/logo.jpg" alt="Haq Agent" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
             <div className="leading-tight">
               <p className="font-bold text-white text-base sm:text-lg">Haq Agent</p>
               <p className="text-sm text-white hidden sm:block">हर योजना, हर हकदार तक</p>
             </div>
-          </a>
+          </Link>
           <nav className="hidden sm:flex items-center gap-8 text-sm font-medium text-white">
-            <a href="/" className="hover:text-yellow-300">Home</a>
-            <a href="/schemes" className="hover:text-yellow-300">Schemes</a>
-            <a href="/agent" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-yellow-300 font-semibold">
+            <Link to="/" className="hover:text-yellow-300">Home</Link>
+            <Link to="/schemes" className="hover:text-yellow-300">Schemes</Link>
+            <Link to="/agent" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-yellow-300 font-semibold">
               <MessageCircle size={20} /> Chat Agent
-            </a>
-            <a href="/track" className="font-bold border-b-2 pb-0.5" style={{ color: "#ffda24", borderColor: "#ffda24" }}>Track Application</a>
+            </Link>
+            <Link to="/track" className="font-bold border-b-2 pb-0.5" style={{ color: "#ffda24", borderColor: "#ffda24" }}>Track Application</Link>
           </nav>
-          <a href="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>
+          <Link to="/agent" className="bg-white font-bold text-sm px-5 py-2 rounded-full" style={{ color: "#0A542E" }}>
             Check Eligibility
-          </a>
+          </Link>
         </div>
       </header>
 
