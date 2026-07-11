@@ -6,3 +6,5 @@ dist/
 .env.*.local
 *.log
 *.tsbuildinfo
+txt
+*.txt

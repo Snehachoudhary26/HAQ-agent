@@ -18,3 +18,6 @@ if (!supabaseUrl || !supabaseSecretKey) {
 const supabase = createClient(supabaseUrl, supabaseSecretKey);
 
 module.exports = supabase;
+module.exports.supabaseAdmin = supabase;
+
+module.exports.supabaseAdmin = supabase;

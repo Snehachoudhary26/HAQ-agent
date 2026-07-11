@@ -3,17 +3,26 @@ const cors = require("cors");
 const { checkEligibility, schemes } = require("./eligibility");
 const personas = require("./data/personas.json");
 const authRoutes = require("./authRoutes");
+const applicationRoutes = require("./applicationRoutes");
+const schemeWatchRoutes = require("./schemeWatchRoutes");
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  process.env.FRONTEND_URL,
-].filter(Boolean);
+const isProduction = process.env.VERCEL || process.env.NODE_ENV === "production";
 
-app.use(cors({ origin: allowedOrigins.length ? allowedOrigins : true }));
+const allowedOrigins = [process.env.FRONTEND_URL].filter(Boolean);
+
+app.use(
+  cors({
+    // Local dev: allow any origin (localhost, 127.0.0.1, LAN IP all vary).
+    // Production (Vercel): only allow the deployed frontend URL.
+    origin: isProduction && allowedOrigins.length ? allowedOrigins : true,
+  })
+);
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api", applicationRoutes);
+app.use("/api", schemeWatchRoutes);
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.get("/api/schemes", (req, res) => res.json(schemes));

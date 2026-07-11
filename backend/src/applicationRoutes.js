@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { supabaseAdmin } = require("./supabaseClient");
+const { schemes } = require("./eligibility");
 
 // Create a new application (called when a user applies to a scheme)
 router.post("/applications", async (req, res) => {
@@ -48,7 +49,16 @@ router.get("/applications/user/:userId", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 
-  res.json({ applications });
+  const enriched = (applications || []).map((app) => {
+    const scheme = schemes.find((s) => s.id === app.scheme_id);
+    const rawSource = scheme?.source?.split("/")[0]?.trim(); // "pmkisan.gov.in / PIB" -> "pmkisan.gov.in"
+    return {
+      ...app,
+      official_site: rawSource ? `https://${rawSource}` : null,
+    };
+  });
+
+  res.json({ applications: enriched });
 });
 
 // Mark a document as uploaded (call this after the file itself is saved to Supabase Storage)

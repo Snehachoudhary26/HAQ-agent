@@ -4,6 +4,7 @@ import {
   Send, Mic, FileCheck2, IndianRupee, BellRing, GraduationCap, Sprout, Users,
   HardHat, Building2, Grid3x3, MessageCircle, ListChecks, FileText, HelpCircle,
   ChevronRight, ShieldCheck, Menu, X, Bell, Sparkles, Zap, Globe, Phone, Mail,
+  Home, ClipboardList,
 } from "lucide-react";
 import { addNotification, getNotifications } from "../lib/notifications";
 import { useVoiceInput } from "../hooks/useVoiceInput";
@@ -59,6 +60,8 @@ export default function AgentChat() {
   const [voiceLang, setVoiceLang] = useState<"hi-IN" | "en-IN">("en-IN");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifCount, setNotifCount] = useState(0);
+  const [appliedSchemeIds, setAppliedSchemeIds] = useState<string[]>([]);
+  const [applyingSchemeId, setApplyingSchemeId] = useState<string | null>(null);
   const { listening, supported, start, stop } = useVoiceInput();
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -80,6 +83,33 @@ export default function AgentChat() {
     setMessages((m) => [...m, { role: "user", text }]);
   }
 
+  const handleApply = async (m: Match) => {
+    const userId = localStorage.getItem("haq_user_id");
+    if (!userId) {
+      alert("Please log in to apply for this scheme.");
+      return;
+    }
+    setApplyingSchemeId(m.schemeId);
+    try {
+      const res = await fetch(`${API_BASE}/api/applications`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          schemeId: m.schemeId,
+          schemeName: m.name,
+          requiredDocuments: m.documents,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to submit application");
+      setAppliedSchemeIds((prev) => [...prev, m.schemeId]);
+    } catch (err) {
+      alert("Something went wrong submitting your application. Please try again.");
+    } finally {
+      setApplyingSchemeId(null);
+    }
+  };
+
   async function runEligibilityCheck(finalProfile: Profile) {
     setThinking(true);
     try {
@@ -90,6 +120,20 @@ export default function AgentChat() {
       });
       const data = await res.json();
       setThinking(false);
+
+      // Save this profile so the daily cron can watch for newly opened schemes.
+      const userId = localStorage.getItem("haq_user_id");
+      const userEmail = localStorage.getItem("haq_user_email");
+      if (userId && userEmail) {
+        fetch(`${API_BASE}/api/scheme-watch`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, email: userEmail, profile: finalProfile }),
+        }).catch(() => {
+          // Non-critical — if this fails, the eligibility check itself still worked.
+        });
+      }
+
       if (data.matches?.length) {
         pushAgent(
           `Good news — based on what you've shared, you qualify for ${data.matches.length} scheme${data.matches.length > 1 ? "s" : ""
@@ -271,7 +315,7 @@ export default function AgentChat() {
   const matchPercent = matches && matches.length > 0 ? Math.min(95, 55 + matches.length * 15) : 0;
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#FAF7F2" }}>
+    <div className="h-screen flex overflow-hidden" style={{ background: "#FAF7F2" }}>
       {/* Sidebar */}
       <aside
         className={`fixed lg:static inset-y-0 left-0 z-40 w-72 flex flex-col transition-transform duration-300 relative overflow-hidden ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -317,10 +361,7 @@ export default function AgentChat() {
         </nav>
 
         {/* Landscape illustration filling remaining space */}
-        <div className="flex-1 relative mt-2">
-          <img src="/images/green.jpg" alt="" className="absolute bottom-0 left-0 w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,84,46,0) 0%, rgba(10,84,46,0.15) 60%, rgba(10,84,46,0.75) 100%)" }} />
-        </div>
+        
 
         <div className="m-4 bg-white/10 backdrop-blur-sm rounded-xl p-3.5 flex items-start gap-2 relative z-10">
           <ShieldCheck size={16} className="text-[#ffda24] flex-shrink-0 mt-0.5" />
@@ -348,6 +389,22 @@ export default function AgentChat() {
               <p className="text-xs text-[#0A542E] font-semibold hidden sm:block">हर योजना, हर हकदार तक</p>
             </div>
           </div>
+
+          <nav className="hidden lg:flex items-center gap-1 text-sm text-black/80 ml-4">
+            <Link to="/" className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 hover:text-[#0A542E] font-semibold">
+              <Home size={16} /> Home
+            </Link>
+            <Link to="/schemes" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-[#0A542E] font-semibold">
+              <ListChecks size={16} /> Schemes
+            </Link>
+            <Link to="/agent" className="flex items-center gap-1.5 px-3 py-1.5 text-[#0A542E] font-semibold">
+              <MessageCircle size={16} /> Chat Agent
+            </Link>
+            <Link to="/track" className="flex items-center gap-1.5 px-3 py-1.5 hover:text-[#0A542E] font-semibold">
+              <ClipboardList size={16} /> Track Application
+            </Link>
+          </nav>
+
           <div className="ml-auto flex items-center gap-2">
             <button
               onClick={() => setVoiceLang("en-IN")}
@@ -524,6 +581,17 @@ export default function AgentChat() {
                         <FileCheck2 size={14} className="text-[#0A542E] flex-shrink-0 mt-0.5" />
                         <p className="text-xs text-black/70 font-medium">{m.documents.join(", ")}</p>
                       </div>
+                      <button
+                        onClick={() => handleApply(m)}
+                        disabled={appliedSchemeIds.includes(m.schemeId) || applyingSchemeId === m.schemeId}
+                        className="mt-3 w-full text-xs font-semibold rounded-lg py-2 bg-[#0A542E] text-white disabled:bg-black/10 disabled:text-black/40 transition-colors"
+                      >
+                        {appliedSchemeIds.includes(m.schemeId)
+                          ? "Application submitted ✓"
+                          : applyingSchemeId === m.schemeId
+                          ? "Submitting..."
+                          : "Apply Now"}
+                      </button>
                     </div>
                   ))}
                   {sendingNotifs && (
@@ -593,7 +661,10 @@ export default function AgentChat() {
                   </div>
                 ))}
               </div>
-              <button className="w-full mt-3 border border-[#0A542E]/30 text-[#0A542E] text-xs font-bold py-2 rounded-lg hover:bg-[#0A542E]/5 transition-colors">
+              <button
+                onClick={resetChat}
+                className="w-full mt-3 border border-[#0A542E]/30 text-[#0A542E] text-xs font-bold py-2 rounded-lg hover:bg-[#0A542E]/5 transition-colors"
+              >
                 Update Profile
               </button>
             </div>
@@ -627,20 +698,31 @@ export default function AgentChat() {
               </p>
               <div className="space-y-1">
                 {[
-                  { label: "Document Checklist", icon: FileText, href: "#" },
+                  { label: "Document Checklist", icon: FileText, href: "/track" },
                   { label: "Track Application", icon: ListChecks, href: "/track" },
-                  { label: "Talk to Support", icon: HelpCircle, href: "#" },
-                ].map((a) => (
-                  <Link
-                    key={a.label}
-                    to={a.href}
-                    className="w-full flex items-center gap-2 text-xs text-black/70 font-semibold py-1.5 hover:text-[#0A542E] transition-colors"
-                  >
-                    <a.icon size={14} />
-                    <span className="flex-1 text-left">{a.label}</span>
-                    <ChevronRight size={13} />
-                  </Link>
-                ))}
+                  { label: "Talk to Support", icon: HelpCircle, href: "mailto:support@haqagent.example" },
+                ].map((a) =>
+                  a.href.startsWith("mailto:") ? (
+                    <a key={a.label}
+                      href={a.href}
+                      className="w-full flex items-center gap-2 text-xs text-black/70 font-semibold py-1.5 hover:text-[#0A542E] transition-colors"
+                    >
+                      <a.icon size={14} />
+                      <span className="flex-1 text-left">{a.label}</span>
+                      <ChevronRight size={13} />
+                    </a>
+                  ) : (
+                    <Link
+                      key={a.label}
+                      to={a.href}
+                      className="w-full flex items-center gap-2 text-xs text-black/70 font-semibold py-1.5 hover:text-[#0A542E] transition-colors"
+                    >
+                      <a.icon size={14} />
+                      <span className="flex-1 text-left">{a.label}</span>
+                      <ChevronRight size={13} />
+                    </Link>
+                  )
+                )}
               </div>
             </div>
 
@@ -658,9 +740,11 @@ export default function AgentChat() {
                   <Mail size={13} className="text-[#92400E] flex-shrink-0" /> support@haqagent.example
                 </a>
               </div>
-              <button className="mt-3 text-xs border border-[#ffda24] text-black font-semibold rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors">
+              <a href="mailto:support@haqagent.example"
+                className="mt-3 text-xs border border-[#ffda24] text-black font-semibold rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors flex items-center justify-center"
+              >
                 Contact Support
-              </button>
+              </a>
             </div>
           </aside>
         </div>

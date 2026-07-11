@@ -258,9 +258,20 @@ export default function Notifications() {
               {[
                 { label: "My Applications", sub: "Track your application status", icon: FileCheck2, href: "/track" },
                 { label: "My Schemes", sub: "View schemes you're eligible for", icon: ListChecks, href: "/schemes" },
-                { label: "Document Checklist", sub: "Check required documents", icon: ClipboardList, href: "#" },
-                { label: "Talk to Support", sub: "Get help from our team", icon: HelpCircle, href: "#" },
-              ].map((a) => (
+                { label: "Document Checklist", sub: "Check required documents", icon: ClipboardList, href: "/track" },
+                { label: "Talk to Support", sub: "Get help from our team", icon: HelpCircle, href: "mailto:support@haqagent.example" },
+              ].map((a) => a.href.startsWith("mailto:") ? (
+                <a key={a.label} href={a.href} className="flex items-center gap-3 group">
+                  <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] flex items-center justify-center flex-shrink-0">
+                    <a.icon size={15} className="text-[#0A542E]" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-black group-hover:text-[#0A542E] transition-colors">{a.label}</p>
+                    <p className="text-xs text-black/50 leading-tight">{a.sub}</p>
+                  </div>
+                  <ChevronRight size={14} className="text-black flex-shrink-0" />
+                </a>
+              ) : (
                 <Link key={a.label} to={a.href} className="flex items-center gap-3 group">
                   <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] flex items-center justify-center flex-shrink-0">
                     <a.icon size={15} className="text-[#0A542E]" />
@@ -289,9 +300,9 @@ export default function Notifications() {
                 <Mail size={13} className="text-[#92400E] flex-shrink-0" /> support@haqagent.example
               </a>
             </div>
-            <button className="mt-3 text-xs border border-[#f8ca0e] text-black font-semibold rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors">
+            <a href="mailto:support@haqagent.example" className="mt-3 text-xs border border-[#f8ca0e] text-black font-semibold rounded-lg px-3 py-1.5 w-full hover:bg-[#ffda24]/10 transition-colors flex items-center justify-center">
               Contact Support
-            </button>
+            </a>
           </div>
         </aside>
       </main>

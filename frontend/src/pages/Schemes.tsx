@@ -8,6 +8,7 @@ import {
   Globe,
 } from "lucide-react";
 import { getNotifications } from "../lib/notifications";
+import { API_BASE } from "../lib/config";
 import { useEffect } from "react";
 
 type Scheme = {
@@ -99,6 +100,24 @@ export default function Schemes() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [saved, setSaved] = useState<string[]>([]);
   const [count, setCount] = useState(0);
+  const [matchedSchemeIds, setMatchedSchemeIds] = useState<string[] | null>(null);
+  const [hasProfile, setHasProfile] = useState(false);
+  const [appliedSchemeIds, setAppliedSchemeIds] = useState<string[]>([]);
+  const [applyingId, setApplyingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("haq_user_id");
+    if (!userId) return;
+    fetch(`${API_BASE}/api/scheme-watch/${userId}`)
+      .then((r) => r.json())
+      .then((data) => {
+        setHasProfile(!!data.hasProfile);
+        setMatchedSchemeIds(data.matchedSchemeIds || []);
+      })
+      .catch(() => {
+        // Non-critical — Apply buttons just fall back to routing through chat.
+      });
+  }, []);
 
   useEffect(() => {
     const load = () => setCount(getNotifications().length);
@@ -106,6 +125,33 @@ export default function Schemes() {
     window.addEventListener("haq-notifications-updated", load);
     return () => window.removeEventListener("haq-notifications-updated", load);
   }, []);
+
+  const handleApply = async (scheme: Scheme) => {
+    const userId = localStorage.getItem("haq_user_id");
+    if (!userId) {
+      alert("Please log in to apply for this scheme.");
+      return;
+    }
+    setApplyingId(scheme.id);
+    try {
+      const res = await fetch(`${API_BASE}/api/applications`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          schemeId: scheme.id,
+          schemeName: scheme.name,
+          requiredDocuments: scheme.documents,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to submit application");
+      setAppliedSchemeIds((prev) => [...prev, scheme.id]);
+    } catch (err) {
+      alert("Something went wrong submitting your application. Please try again.");
+    } finally {
+      setApplyingId(null);
+    }
+  };
 
   const toggleSaved = (id: string) => {
     setSaved((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
@@ -255,13 +301,40 @@ export default function Schemes() {
                       <p className="flex items-center gap-1 font-semibold text-black whitespace-nowrap"><IndianRupee size={12} />{s.amount}</p>
                       <p className="flex items-center gap-1 text-xs mt-0.5 whitespace-nowrap"><Calendar size={11} />{s.amountSub}</p>
                     </div>
-                    <Link
-                      to="/agent"
-                      onClick={(e) => e.stopPropagation()}
-                      className="bg-[#0A542E] hover:bg-[#083d21] text-white text-sm font-bold px-5 py-2 rounded-full whitespace-nowrap transition-colors w-28 text-center flex-shrink-0"
-                    >
-                      Apply Now
-                    </Link>
+                    {appliedSchemeIds.includes(s.id) ? (
+                      <button
+                        disabled
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-black/10 text-black/40 text-sm font-bold px-5 py-2 rounded-full whitespace-nowrap w-28 text-center flex-shrink-0 cursor-default"
+                      >
+                        Applied ✓
+                      </button>
+                    ) : matchedSchemeIds && matchedSchemeIds.includes(s.id) ? (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleApply(s); }}
+                        disabled={applyingId === s.id}
+                        className="bg-[#0A542E] hover:bg-[#083d21] text-white text-sm font-bold px-5 py-2 rounded-full whitespace-nowrap transition-colors w-28 text-center flex-shrink-0 disabled:opacity-60"
+                      >
+                        {applyingId === s.id ? "Applying..." : "Apply Now"}
+                      </button>
+                    ) : hasProfile && matchedSchemeIds ? (
+                      <button
+                        disabled
+                        onClick={(e) => e.stopPropagation()}
+                        title="You don't currently qualify for this scheme based on your saved profile"
+                        className="bg-black/10 text-black/40 text-sm font-bold px-5 py-2 rounded-full whitespace-nowrap w-28 text-center flex-shrink-0 cursor-not-allowed"
+                      >
+                        Not Eligible
+                      </button>
+                    ) : (
+                      <Link
+                        to="/agent"
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-[#0A542E] hover:bg-[#083d21] text-white text-sm font-bold px-5 py-2 rounded-full whitespace-nowrap transition-colors w-28 text-center flex-shrink-0"
+                      >
+                        Apply Now
+                      </Link>
+                    )}
                     <button onClick={() => setExpandedId(expanded ? null : s.id)} className="text-black hover:text-[#0A542E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0A542E]/30 rounded-full p-1 transition-colors flex-shrink-0">
                       {expanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                     </button>
@@ -289,9 +362,28 @@ export default function Schemes() {
                       </div>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3 pt-1">
-                      <Link to="/agent" className="flex-1 text-white text-sm font-bold px-4 py-2.5 rounded-full text-center transition-colors" style={{ background: "#0A542E" }}>
-                        Check if I qualify
-                      </Link>
+                      {appliedSchemeIds.includes(s.id) ? (
+                        <button disabled className="flex-1 text-black/40 text-sm font-bold px-4 py-2.5 rounded-full text-center bg-black/10 cursor-default">
+                          Application submitted ✓
+                        </button>
+                      ) : matchedSchemeIds && matchedSchemeIds.includes(s.id) ? (
+                        <button
+                          onClick={() => handleApply(s)}
+                          disabled={applyingId === s.id}
+                          className="flex-1 text-white text-sm font-bold px-4 py-2.5 rounded-full text-center transition-colors disabled:opacity-60"
+                          style={{ background: "#0A542E" }}
+                        >
+                          {applyingId === s.id ? "Applying..." : "Apply Now"}
+                        </button>
+                      ) : hasProfile && matchedSchemeIds ? (
+                        <button disabled title="You don't currently qualify for this scheme based on your saved profile" className="flex-1 text-black/40 text-sm font-bold px-4 py-2.5 rounded-full text-center bg-black/10 cursor-not-allowed">
+                          Not Eligible Yet
+                        </button>
+                      ) : (
+                        <Link to="/agent" className="flex-1 text-white text-sm font-bold px-4 py-2.5 rounded-full text-center transition-colors" style={{ background: "#0A542E" }}>
+                          Check if I qualify
+                        </Link>
+                      )}
                       <a href={`https://${s.source}`} target="_blank" rel="noopener noreferrer"
                         className="flex-1 text-sm font-bold px-4 py-2.5 rounded-full text-center border-2 flex items-center justify-center gap-2 transition-colors"
                         style={{ borderColor: "#0A542E", color: "#0A542E" }}>

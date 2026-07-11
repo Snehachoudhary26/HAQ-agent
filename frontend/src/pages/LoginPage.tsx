@@ -90,6 +90,7 @@ export default function LoginPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Invalid or expired code");
       localStorage.setItem("haq_user_id", data.user.id);
+      localStorage.setItem("haq_user_email", data.user.email ?? "");
       window.dispatchEvent(new Event("haq-auth-changed"));
       setStep("success");
       setTimeout(() => navigate("/"), 1500);
@@ -183,6 +184,7 @@ export default function LoginPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not create account");
       localStorage.setItem("haq_user_id", data.user.id);
+      localStorage.setItem("haq_user_email", data.user.email ?? "");
       window.dispatchEvent(new Event("haq-auth-changed"));
       setStep("success");
       setTimeout(() => navigate("/"), 1500);
@@ -209,6 +211,7 @@ export default function LoginPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Invalid email or password");
       localStorage.setItem("haq_user_id", data.user.id);
+      localStorage.setItem("haq_user_email", data.user.email ?? "");
       window.dispatchEvent(new Event("haq-auth-changed"));
       setStep("success");
       setTimeout(() => navigate("/"), 1500);

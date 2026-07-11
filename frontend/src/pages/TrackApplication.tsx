@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Search, CheckCircle2, Clock, AlertCircle, FileText, Bell, ChevronDown, ChevronUp, Phone, MessageCircle, Loader2 } from "lucide-react";
-
-const API_BASE = "http://localhost:4000";
+import { API_BASE } from "../lib/config";
 
 type Status = "approved" | "pending" | "action-required";
 
@@ -20,6 +19,7 @@ type ApiApplication = {
   submitted_at: string;
   updated_at: string;
   application_documents: ApiDocument[];
+  official_site: string | null;
 };
 
 type Application = {
@@ -31,6 +31,7 @@ type Application = {
   nextStep: string;
   referenceNo: string;
   documents: { name: string; submitted: boolean }[];
+  officialSite: string | null;
 };
 
 const statusConfig = {
@@ -76,6 +77,7 @@ function mapApplication(a: ApiApplication): Application {
       name: documentLabel(d.document_type),
       submitted: d.status !== "missing",
     })),
+    officialSite: a.official_site,
   };
 }
 
@@ -269,6 +271,18 @@ export default function TrackApplication() {
                             <Phone size={16} /> Helpline 14555
                           </a>
                         </div>
+                        {app.officialSite && (
+                          
+                            <a
+                            href={app.officialSite}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-center text-sm font-semibold underline pt-1"
+                            style={{ color: "#0A542E" }}
+                          >
+                            Visit official scheme website to complete your application →
+                          </a>
+                        )}
                       </div>
                     )}
                   </div>
