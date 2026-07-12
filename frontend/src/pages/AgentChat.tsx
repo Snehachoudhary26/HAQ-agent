@@ -382,15 +382,8 @@ export default function AgentChat() {
           <button className="lg:hidden text-white" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
             <Menu size={22} />
           </button>
-          <div className="flex items-center gap-2">
-            <img src="/images/favicon.jpg" alt="" className="w-8 h-8 rounded-full object-cover border-2 border-white/30" />
-            <div className="leading-tight">
-              <p className="font-bold text-white text-sm">Haq Agent</p>
-              <p className="text-xs text-white/80 font-semibold hidden sm:block">हर योजना, हर हकदार तक</p>
-            </div>
-          </div>
 
-          <nav className="hidden lg:flex items-center gap-1 text-sm text-white ml-4">
+          <nav className="hidden lg:flex items-center gap-1 text-sm text-white">
             <Link to="/" className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 hover:text-yellow-300 font-semibold">
               <Home size={16} /> Home
             </Link>
