@@ -131,6 +131,7 @@ export default function LoginPage() {
       if (user.phoneNumber) {
         localStorage.setItem("haq_user_phone", user.phoneNumber);
       }
+      window.dispatchEvent(new Event("haq-auth-changed"));
       setStep("success");
       setTimeout(() => navigate("/"), 1500);
     } else if (firebasePhone.error) {
