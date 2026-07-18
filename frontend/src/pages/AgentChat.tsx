@@ -378,12 +378,12 @@ export default function AgentChat() {
 
       {/* Main column */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header style={{ background: "#0A542E" }} className="flex items-center gap-3 px-4 sm:px-6 py-3 text-white sticky top-0 z-20 shadow-lg">
+        <header style={{ background: "#0A542E" }} className="relative flex items-center gap-3 px-4 sm:px-6 py-3 text-white sticky top-0 z-20 shadow-lg">
           <button className="lg:hidden text-white" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
             <Menu size={22} />
           </button>
 
-          <nav className="hidden lg:flex items-center gap-1 text-sm text-white">
+          <nav className="hidden lg:flex items-center gap-1 text-sm text-white absolute left-1/2 -translate-x-1/2">
             <Link to="/" className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 hover:text-yellow-300 font-semibold">
               <Home size={16} /> Home
             </Link>
