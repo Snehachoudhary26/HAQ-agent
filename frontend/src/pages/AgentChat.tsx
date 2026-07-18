@@ -383,7 +383,7 @@ export default function AgentChat() {
             <Menu size={22} />
           </button>
 
-          <nav className="hidden lg:flex items-center gap-1 text-sm text-white absolute left-1/2 -translate-x-1/2">
+          <nav className="hidden lg:flex items-center gap-1 text-sm text-white absolute left-[56%] -translate-x-1/2">
             <Link to="/" className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 hover:text-yellow-300 font-semibold">
               <Home size={16} /> Home
             </Link>
